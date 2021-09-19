@@ -14,7 +14,7 @@ export const MainViewItemContainer = styled.div`
 
 export const MainViewItemHeaderContainer = styled.div<{ bg: string }>`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 20px;
@@ -26,10 +26,28 @@ export const MainViewItemHeaderContainer = styled.div<{ bg: string }>`
   color: #fff;
   font-size: 13px;
 
+  .flex-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   .main-class-list {
     margin-left: 15px;
     padding-left: 15px;
     border-left: 1px solid #fff;
+  }
+
+  .settings-icon {
+    width: 13px;
+    height: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 

@@ -74,7 +74,10 @@ class GlobalProvider extends React.Component {
         tagName: 'div',
         classList: 'container',
         bgColor: assignColor(0),
-        styles: [{ width: 100 + '%' }, { border: '2px solid red' }],
+        styles: [
+          { property: 'width', value: 100 + '%' },
+          { property: 'border', value: '2px solid red' },
+        ],
         nestedLevel: 0,
         childrens: [],
       },

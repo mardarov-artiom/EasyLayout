@@ -7,7 +7,6 @@ const PageOutputHTML: React.FC<PageOutputHTMLInterface> = ({ items }) => {
   return (
     <Fragment>
       {items.map((item: LayoutItemsList): JSX.Element => {
-        console.log('OUTPUT => item.classList', item.classList.length);
         const itemRow = (
           <Fragment>
             <span>
@@ -30,7 +29,7 @@ const PageOutputHTML: React.FC<PageOutputHTMLInterface> = ({ items }) => {
             <span className="por-tag">{item.tagName}</span>
             {item.classList && itemRow}
             <span>{'>'}</span>
-            {item.childrens && item.childrens.length > 0 && <PageOutputHTML items={item.childrens}></PageOutputHTML>}
+            {item.childrens && item.childrens.length > 0 && <PageOutputHTML items={item.childrens} />}
             <span>{'</'}</span>
             <span className="por-tag">{item.tagName}</span>
             <span>{'>'}</span>

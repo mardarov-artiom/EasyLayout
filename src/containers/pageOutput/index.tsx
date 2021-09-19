@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PageOutputInternalContainer from 'components/pageOutputInternalContainer';
 import { GlobalContext } from 'globalContext';
 import PageOutputHTML from 'components/PageOutputHTML';
+import PageOutputCSS from 'components/pageOutputCSS';
 
 import { PageOutputScrollContainer } from './styles';
 
@@ -14,7 +15,7 @@ const PageOutputContainer: React.FC = () => {
           <PageOutputHTML items={layoutItemsList} />
         </PageOutputInternalContainer>
         <PageOutputInternalContainer name="CSS">
-          <div>code</div>
+          <PageOutputCSS items={layoutItemsList} />
         </PageOutputInternalContainer>
       </div>
     </PageOutputScrollContainer>

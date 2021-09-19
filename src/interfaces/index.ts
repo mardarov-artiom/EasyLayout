@@ -3,7 +3,9 @@ export interface LayoutItemsList {
   tagName: string;
   classList: string;
   bgColor: string;
-  styles: Object[] | [];
+  styles: {
+    [key: string]: string | number;
+  }[];
   nestedLevel: number;
   childrens: LayoutItemsList[];
 }

@@ -23,14 +23,22 @@ export const LayoutItemsContainer = styled.div<withBgProps>`
     justify-content: flex-start;
     margin-bottom: 5px;
     padding-left: 15px;
-  }
-  .tag-name {
-    color: ${props => props.bg};
-    margin-right: 15px;
-  }
 
-  .class-lists {
-    color: #d7ba7d;
+    input {
+      border: none;
+      background: none;
+      color: #fff;
+    }
+    .tag-name {
+      color: ${props => props.bg};
+      margin-right: 15px;
+      max-width: 90px;
+    }
+
+    .class-lists {
+      color: #d7ba7d;
+      flex-grow: 1;
+    }
   }
 `;
 
@@ -103,6 +111,7 @@ export const Input = styled.input`
   border-bottom: 2px solid #ccc;
   padding: 3px 10px;
   font-size: 15px;
+  color: #000;
 `;
 
 export const Button = styled.button<withBgProps>`

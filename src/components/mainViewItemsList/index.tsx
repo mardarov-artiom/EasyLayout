@@ -3,6 +3,8 @@ import { LayoutItemsList } from 'interfaces';
 
 import { MainViewItemContainer, MainViewItemHeaderContainer, MainViewItemMainContainer } from './styles';
 
+import SettingsIcon from 'assets/icons/settings.svg';
+
 const MainViewItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
   return (
     <Fragment>
@@ -10,9 +12,14 @@ const MainViewItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) =>
         return (
           <MainViewItemContainer key={item.id}>
             <MainViewItemHeaderContainer bg={item.bgColor}>
-              <div className="main-tag-names">{item.tagName}</div>
-              <div className="main-class-list">
-                {item.classList.length > 0 && 'class:'} {item.classList}
+              <div className="flex-wrapper">
+                <div className="main-tag-names">{item.tagName}</div>
+                <div className="main-class-list">
+                  {item.classList.length > 0 && 'class:'} {<input type="text" readOnly value={item.classList} />}
+                </div>
+              </div>
+              <div className="settings-icon">
+                <img src={SettingsIcon} alt="" />
               </div>
             </MainViewItemHeaderContainer>
             <MainViewItemMainContainer childrens={item.childrens}>

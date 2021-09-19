@@ -52,8 +52,8 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
           return (
             <LayoutItemsContainer key={item.id} bg={item.bgColor}>
               <div className="header-info">
-                <span className="tag-name">{item.tagName}</span>
-                {item.classList && <span className="class-lists">{item.classList}</span>}
+                <input type="text" className="tag-name" readOnly value={item.tagName} />
+                {item.classList && <input type="text" readOnly value={item.classList} className="class-lists" />}
               </div>
               {renderItemsList}
             </LayoutItemsContainer>

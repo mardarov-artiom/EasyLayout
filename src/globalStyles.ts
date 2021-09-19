@@ -16,6 +16,12 @@ const GlobalStyle = createGlobalStyle`
 input:-internal-autofill-selected {
   background-color: #fff !important;
 }
+
+input {
+  border: none;
+  background: none;
+  color: #fff;
+}
 `;
 
 export default GlobalStyle;
