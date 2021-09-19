@@ -27,11 +27,11 @@ const App: React.FC = () => {
           <Section defaultSize={384} minSize={200}>
             <PageInputContainer />
           </Section>
-          <Bar size={5} style={{ background: '#888888', cursor: 'e-resize' }} />
+          <Bar size={5} style={{ background: '#1e1e1e', cursor: 'e-resize' }} />
           <Section minSize={100}>
             <MainViewContainer />
           </Section>
-          <Bar size={5} style={{ background: '#888888', cursor: 'e-resize' }} />
+          <Bar size={5} style={{ background: '#1e1e1e', cursor: 'e-resize' }} />
           <Section defaultSize={384} minSize={200}>
             <PageOutputContainer />
           </Section>
