@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { LayoutItemsList } from 'interfaces';
 
-export interface PageOutputHTMLInterface {
+export interface PageOutputCSSInterface {
   items: LayoutItemsList[];
 }
 
-export const PageOutputHTMLWrapper = styled.div`
+export const PageOutputCSSWrapper = styled.div`
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 13px;
   color: #ddd;
@@ -13,6 +13,7 @@ export const PageOutputHTMLWrapper = styled.div`
 
 export const ClassNameRow = styled.div`
   color: #d7ba7d;
+  white-space: nowrap;
 
   .style-rows-container {
     padding: 3px 0;

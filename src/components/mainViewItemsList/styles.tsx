@@ -19,8 +19,7 @@ export const MainViewItemHeaderContainer = styled.div<{ bg: string }>`
   width: 100%;
   height: 20px;
   padding: 0 10px;
-  background-color: #1e88e5;
-  background-color: ${props => props.bg};
+  background-color: ${props => props.bg ? props.bg : '#1e88e5'};
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: #fff;

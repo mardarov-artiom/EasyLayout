@@ -28,5 +28,6 @@ export const PageOutputHTMLWrapper = styled.div<{ childrens: LayoutItemsList[]; 
   }
   .por-class-names {
     color: #d7ba7d;
+    white-space: nowrap;
   }
 `;

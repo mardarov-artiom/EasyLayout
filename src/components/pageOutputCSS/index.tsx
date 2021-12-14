@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { LayoutItemsList } from 'interfaces';
 
-import { PageOutputHTMLWrapper, ClassNameRow, StylePropertyRow, PageOutputHTMLInterface } from './styles';
+import { PageOutputCSSWrapper, ClassNameRow, StylePropertyRow, PageOutputCSSInterface } from './styles';
 
-const PageOutputHTML: React.FC<PageOutputHTMLInterface> = ({ items }) => {
+const PageOutputHTML: React.FC<PageOutputCSSInterface> = ({ items }) => {
   return (
-    <PageOutputHTMLWrapper>
+    <PageOutputCSSWrapper>
       <Fragment>
         {items.map((item: LayoutItemsList) => {
           const classNames = item.classList.split(' ').map((className: string) => {
@@ -47,7 +47,7 @@ const PageOutputHTML: React.FC<PageOutputHTMLInterface> = ({ items }) => {
           );
         })}
       </Fragment>
-    </PageOutputHTMLWrapper>
+    </PageOutputCSSWrapper>
   );
 };
 

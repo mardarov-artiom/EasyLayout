@@ -5,7 +5,7 @@ import { generateRandomId, GlobalContext } from 'globalContext';
 import { LayoutItemsContainer, ItemListContainer, ItemInfo, InputWrapper, Input, Button } from './styles';
 
 const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
-  const { handleItemAddition, hangleInputChange } = useContext(GlobalContext);
+  const { handleItemAddition, handleInputChange } = useContext(GlobalContext);
   return (
     <Fragment>
       {items.map((item: LayoutItemsList): JSX.Element => {
@@ -27,7 +27,7 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
                   type="text"
                   placeholder="Tag name"
                   value={item.tagName}
-                  onChange={e => hangleInputChange(item, 'tagName', e.target.value)}
+                  onChange={e => handleInputChange(item, 'tagName', e.target.value)}
                 />
               </InputWrapper>
               <InputWrapper className="input-classes" bg={item.bgColor}>
@@ -35,7 +35,7 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
                   type="text"
                   placeholder="Class names"
                   value={item.classList}
-                  onChange={e => hangleInputChange(item, 'classList', e.target.value)}
+                  onChange={e => handleInputChange(item, 'classList', e.target.value)}
                 />
               </InputWrapper>
               <div className="button">

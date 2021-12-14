@@ -3,6 +3,7 @@ import React, { Fragment, useContext } from 'react';
 import GlobalStyle from 'globalStyles';
 
 import { GlobalContext } from 'globalContext';
+import Modal from "components/modal";
 import PageInputContainer from 'containers/pageInput';
 import MainViewContainer from 'containers/mainView';
 import PageOutputContainer from 'containers/pageOutput';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
           </Section>
         </Container>
       </PageMainContainer>
+      <Modal>test</Modal>
     </Fragment>
   );
 };
