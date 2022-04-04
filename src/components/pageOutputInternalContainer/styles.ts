@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export interface PageOutputInternalWrapperInterface {
   name?: string;
+  text: string;
 }
 
 export const PageOutputInternalContainer = styled.div`

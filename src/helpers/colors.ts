@@ -1,4 +1,4 @@
-export const bgColors = [
+export const bgColors: string[] = [
   '#304ffe',
   '#2962ff',
   '#0091ea',
@@ -13,9 +13,9 @@ export const bgColors = [
   '#dd2c00',
 ];
 
-export const assignColor = (arrLength: number) => {
-  const testArray = [...bgColors.keys()].map(v => v + 1);
-  let resultArray = [];
+export const assignColor = (arrLength: number): string => {
+  const testArray: number[] = [...bgColors.keys()].map(v => v + 1);
+  let resultArray: number[] = [];
   for (let i = 0; i <= arrLength; i++) {
     if (resultArray.length >= bgColors.length) {
       resultArray = [];

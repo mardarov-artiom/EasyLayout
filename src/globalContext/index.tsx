@@ -1,45 +1,28 @@
 /* eslint-disable react/no-direct-mutation-state */
-import React from 'react';
+import React from "react";
+import copy from "clipboard-copy";
 
-import { LayoutItemsList } from 'interfaces';
-import { assignColor } from 'helpers/colors';
+import { defaultObjInterface, LayoutInputRow, LayoutItemsList } from "interfaces";
+import { assignColor } from "helpers/colors";
+import { clipboardItem, joinReformattedArray, reformatString } from "../helpers/clipboard";
 
-export const defaultLayoutObject = {
-  id: '',
-  tagName: 'div',
-  classList: '',
+export const defaultLayoutObject: LayoutItemsList = {
+  id: "",
+  tagName: "div",
+  classList: "",
   nestedLevel: 0,
-  bgColor: '',
+  bgColor: "",
   styles: [],
   childrens: [],
 };
 
-const defaultState = {
-  isLoading: false,
-  modalContent: defaultLayoutObject,
-  isModalOpen: false,
-  layoutItemsList: [defaultLayoutObject],
-  handleContainerAddition: () => {
-  },
-  handleItemAddition: () => {
-  },
-  handleInputChange: () => {
-  },
-  handleModalOpen: () => {
-  },
-  handleModalClose: () => {
-  },
-};
-
-export const generateRandomId = () => {
-  const randomString = () => String.fromCharCode(65 + Math.floor(Math.random() * 26));
-  return randomString() + Date.now() + randomString();
-};
-
-
 interface value {
   isLoading: boolean;
   isModalOpen: boolean;
+  copyTextState: {
+    html: string;
+    css: string;
+  };
   modalContent: LayoutItemsList;
   layoutItemsList: LayoutItemsList[];
   handleContainerAddition: () => void;
@@ -47,7 +30,36 @@ interface value {
   handleModalClose: () => void;
   handleItemAddition: (item: LayoutItemsList, newItem: LayoutItemsList) => void;
   handleInputChange: (item: LayoutItemsList, field: string, value: string) => void;
+  handleStylePropertyChange: (item: LayoutItemsList, elementIndex: number, removeElement: boolean, style: LayoutInputRow) => void;
+  handleItemStyleAddition: (item: LayoutItemsList) => void;
+  checkIfStylesHaveEmptyField: () => boolean;
+  copyHtmlToClipboard: () => void;
 }
+
+const defaultState = {
+  isLoading: false,
+  modalContent: defaultLayoutObject,
+  isModalOpen: false,
+  copyTextState: {
+    html: 'Copy',
+    css: 'Copy',
+  },
+  layoutItemsList: [defaultLayoutObject],
+  handleContainerAddition: () => {},
+  handleItemAddition: () => {},
+  handleItemStyleAddition: () => {},
+  handleInputChange: () => {},
+  handleModalOpen: () => {},
+  handleModalClose: () => {},
+  handleStylePropertyChange: () => {},
+  checkIfStylesHaveEmptyField: () => true,
+  copyHtmlToClipboard: () => {}
+};
+
+export const generateRandomId = (): string => {
+  const randomString = () => String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  return randomString() + Date.now() + randomString();
+};
 
 const GlobalContext = React.createContext<value>(defaultState);
 
@@ -75,20 +87,20 @@ class GlobalProvider extends React.Component {
     this.state.context.layoutItemsList = [
       {
         id: generateRandomId(),
-        tagName: 'div',
-        classList: 'container',
+        tagName: "div",
+        classList: "container",
         bgColor: assignColor(0),
         styles: [
-          {property: 'width', value: 100 + '%'},
-          {property: 'border', value: '2px solid red'},
+          {property: "width", value: 100 + "%"},
+          {property: "border", value: "2px solid red"},
         ],
         nestedLevel: 0,
         childrens: [],
       },
     ];
-  }
+  };
 
-  public handleContainerAddition = () => {
+  public handleContainerAddition = (): void => {
     const newLayoutItem = {...defaultLayoutObject, id: generateRandomId()};
     newLayoutItem.bgColor = assignColor(this.state.context.layoutItemsList.length);
     this.modifyLayoutItemsState(
@@ -100,40 +112,114 @@ class GlobalProvider extends React.Component {
     );
   };
 
-  public handleItemAddition = (item: LayoutItemsList, newItem: LayoutItemsList) => {
-    this.modifyLayoutItemsState(item, (elem: any) => {
+  public handleItemAddition = (item: LayoutItemsList, newItem: LayoutItemsList): void => {
+    this.modifyLayoutItemsState(item, (elem: LayoutItemsList) => {
       elem?.childrens.push(newItem);
     });
   };
 
-  public handleInputChange = (item: LayoutItemsList, field: string, value: string) => {
+  private copyWithForceUpdate = (array: string[], property: string): void => {
+    copy(joinReformattedArray(array)).then(() => {
+      this.state.context.copyTextState[property] = 'Copied!';
+      this.forceUpdate();
+      window.setTimeout(() => {
+        this.state.context.copyTextState[property] = 'Copy!';
+      }, 2000);
+    });
+  }
+
+  public copyHtmlToClipboard = (): void => {
+    const resultArray: defaultObjInterface[] = [];
+    this.state.context.layoutItemsList.map((item: LayoutItemsList) => {
+      if (item.childrens.length > 0) {
+        return resultArray.push(clipboardItem(item, item.childrens));
+      }
+      return resultArray.push(clipboardItem(item));
+    });
+
+    const resultString = resultArray.map((item: defaultObjInterface): string => {
+      if (item.middle.length > 0) {
+        return reformatString(item, item.middle);
+      }
+      return reformatString(item);
+    });
+
+    this.copyWithForceUpdate(resultString, 'html');
+  };
+
+  public copyCssToClipboard = (): void => {
+
+    this.copyWithForceUpdate(['resultString'], 'css');
+  };
+
+  public handleItemStyleAddition = (item: LayoutItemsList): void => {
+    const emptyStyleObject = {
+      property: "",
+      value: ""
+    };
+
+    this.modifyLayoutItemsState(item, (elem: LayoutItemsList): void => {
+      this.state.context.modalContent.styles.push(emptyStyleObject);
+      elem.styles.push(emptyStyleObject);
+    });
+  };
+
+  public checkIfStylesHaveEmptyField = (): boolean => {
+    if (this.state.context.modalContent.styles) {
+      return this.state.context.modalContent.styles.filter((style: LayoutInputRow) => {
+        return style.property.length === 0 && (typeof style.value !== "number" ? style.value.length === 0 : style.value > 0);
+      }).length > 0;
+    }
+    return false;
+  };
+
+  public handleInputChange = (item: LayoutItemsList, field: string, value: string): void => {
     this.modifyLayoutItemsState(item, (elem: any) => {
       elem[field] = value;
     });
   };
 
-  public handleModalOpen = (item: LayoutItemsList) => {
-    this.state.context.isModalOpen = true;
-    this.state.context.modalContent = item;
-  }
+  public handleModalOpen = (item: LayoutItemsList): void => {
+    if (!this.state.context.isModalOpen) {
+      this.state.context.isModalOpen = true;
+    }
+    this.state.context.modalContent = this.getCurrentItem(this.state.context.layoutItemsList, item.id);
+  };
 
-  public handleModalClose = () => {
+  public handleModalClose = (): void => {
     this.state.context.isModalOpen = false;
     this.state.context.modalContent = defaultLayoutObject;
   };
 
+  public handleStylePropertyChange = (item: LayoutItemsList, elementIndex: number, removeElement: boolean = false, style?: LayoutInputRow) => {
+    this.modifyLayoutItemsState(item, (elem: any): void => {
+      if (!removeElement) {
+        this.state.context.modalContent.styles[elementIndex] = {...style};
+        elem.styles[elementIndex] = {...style};
+      } else {
+        this.state.context.modalContent.styles.splice(elementIndex, 1);
+        elem.styles.splice(elementIndex, 1);
+      }
+    });
+  };
+
   public render() {
-    const {isLoading, layoutItemsList, isModalOpen, modalContent} = this.state.context;
-    const value = {
+    const {isLoading, layoutItemsList, isModalOpen, modalContent, copyTextState} = this.state.context;
+    const value: value = {
       isLoading,
       isModalOpen,
       layoutItemsList,
       modalContent,
+      copyTextState,
       handleModalOpen: this.handleModalOpen,
       handleModalClose: this.handleModalClose,
       handleItemAddition: this.handleItemAddition,
       handleInputChange: this.handleInputChange,
       handleContainerAddition: this.handleContainerAddition,
+      handleStylePropertyChange: this.handleStylePropertyChange,
+      handleItemStyleAddition: this.handleItemStyleAddition,
+      checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
+      copyHtmlToClipboard: this.copyHtmlToClipboard,
     };
     return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
   }
@@ -144,24 +230,24 @@ class GlobalProvider extends React.Component {
     this.state.context.modalContent = {};
   };
 
-  private getCurrentItem = (arr: LayoutItemsList[], itemId: string) => {
-    return arr.reduce((secondArray: LayoutItemsList | null, item: LayoutItemsList): any => {
+  private getCurrentItem = (arr: LayoutItemsList[], itemId: string): LayoutItemsList | null => {
+    return arr.reduce((secondArray: LayoutItemsList | null, item: LayoutItemsList): LayoutItemsList | null => {
       if (secondArray) {
         return secondArray;
       }
       if (item.id === itemId) {
         return item;
       }
-      if (item['childrens']) {
-        return this.getCurrentItem(item['childrens'], itemId);
+      if (item["childrens"]) {
+        return this.getCurrentItem(item["childrens"], itemId);
       }
       return null;
     }, null);
   };
 
-  private modifyLayoutItemsState = (item: LayoutItemsList, callback: Function, callbackWithStateCopy = false) => {
+  private modifyLayoutItemsState = (item: LayoutItemsList, callback: Function, callbackWithStateCopy = false): void => {
     const stateCopy = JSON.parse(JSON.stringify(this.state.context.layoutItemsList));
-    const elem = this.getCurrentItem(stateCopy, item.id);
+    const elem: LayoutItemsList | null = this.getCurrentItem(stateCopy, item.id);
     if (callbackWithStateCopy) {
       callback(stateCopy);
     } else {

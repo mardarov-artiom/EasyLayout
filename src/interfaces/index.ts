@@ -4,8 +4,22 @@ export interface LayoutItemsList {
   classList: string;
   bgColor: string;
   styles: {
-    [key: string]: string | number;
+    property: string,
+    value: string | number
   }[];
   nestedLevel: number;
   childrens: LayoutItemsList[];
+}
+
+export interface LayoutInputRow {
+    property: string;
+    value: string | number;
+}
+
+export interface defaultObjInterface {
+  id: string;
+  open: string;
+  middle: LayoutItemsList[] | defaultObjInterface[],
+  close: string;
+  nestedLevel: number
 }

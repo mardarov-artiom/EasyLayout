@@ -22,7 +22,6 @@ export const ModalWrapper = styled.div<ModalState>`
   display: ${props => props.modalState ? 'block' : 'none'};
 `;
 
-
 export const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
@@ -34,8 +33,6 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  width: 400px;
-  height: 500px;
   z-index: 1002;
   position: absolute;
   top: 50%;
@@ -51,6 +48,7 @@ export const ModalContentHeader = styled.div<ModalContentHeaderInterface>`
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background-color: ${props => props.bg || '#1d1d1d'};
+  color: #fff;
 `;
 
 export const ModalContentBody = styled.div`
@@ -60,8 +58,28 @@ export const ModalContentBody = styled.div`
   padding: 15px;
 `;
 
+export const ModalContentBodyTitle = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 5px 10px 5px;
+  color: #d7ba7d;
+  font-size: 16px;
+
+  & > div:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  div {
+    width: 240px;
+    text-align: center;
+    
+    
+  }
+`;
+
 export const CloseButton = styled.div`
-  content: 'x';
+  margin-left: 10px;
   font-size: 30px;
   cursor: pointer;
   width: 20px;
@@ -75,7 +93,7 @@ export const CloseButton = styled.div`
     width: 18px;
     height: 2px;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 0;
     background-color: #fff;
     border-radius: 30px;
@@ -87,11 +105,41 @@ export const CloseButton = styled.div`
     width: 18px;
     height: 2px;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 0;
     background-color: #fff;
     border-radius: 30px;
     transform: rotate(-45deg);
   }
+`;
+
+export const ModalContentStylesList = styled.div`
+  max-height: 75vh;
+  overflow-y: auto;
+  padding-right: 15px;
+`;
+
+export const ModalContentBodyRow = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+  input {
+    color: #000;
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    width: 240px;
+  }
+`;
+
+export const ModalContentBodyStyleAddition = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+
 `;
 

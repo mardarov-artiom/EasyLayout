@@ -1,20 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment, useContext } from 'react';
-import GlobalStyle from 'globalStyles';
+import React, { Fragment, ReactElement, useContext } from "react";
+import GlobalStyle from "globalStyles";
 
-import { GlobalContext } from 'globalContext';
+import { GlobalContext } from "globalContext";
 import Modal from "components/modal";
-import PageInputContainer from 'containers/pageInput';
-import MainViewContainer from 'containers/mainView';
-import PageOutputContainer from 'containers/pageOutput';
-import { Container, Section, Bar } from 'react-simple-resizer';
-import PageMainContainer from 'components/pageMainContainer';
+import PageInputContainer from "containers/pageInput";
+import MainViewContainer from "containers/mainView";
+import PageOutputContainer from "containers/pageOutput";
+import { Container, Section, Bar } from "react-simple-resizer";
+import PageMainContainer from "components/pageMainContainer";
 
-import 'normalize.css';
-import './Grid.scss';
+import "normalize.css";
+import "Grid.scss";
 
-const App: React.FC = () => {
-  const { isLoading } = useContext(GlobalContext);
+const App: React.FC = (): ReactElement  => {
+  const {isLoading} = useContext(GlobalContext);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -22,23 +21,23 @@ const App: React.FC = () => {
 
   return (
     <Fragment>
-      <GlobalStyle />
+      <GlobalStyle/>
       <PageMainContainer>
-        <Container style={{ width: 100 + '%', height: '100vh' }}>
-          <Section defaultSize={384} minSize={200}>
-            <PageInputContainer />
+        <Container style={{width: 100 + "%", height: "100vh"}}>
+          <Section defaultSize={384} minSize={250}>
+            <PageInputContainer/>
           </Section>
-          <Bar size={5} style={{ background: '#1e1e1e', cursor: 'e-resize' }} />
+          <Bar size={5} style={{background: "#1e1e1e", cursor: "e-resize"}}/>
           <Section minSize={100}>
-            <MainViewContainer />
+            <MainViewContainer/>
           </Section>
-          <Bar size={5} style={{ background: '#1e1e1e', cursor: 'e-resize' }} />
-          <Section defaultSize={384} minSize={200}>
-            <PageOutputContainer />
+          <Bar size={5} style={{background: "#1e1e1e", cursor: "e-resize"}}/>
+          <Section defaultSize={384} minSize={320}>
+            <PageOutputContainer/>
           </Section>
         </Container>
       </PageMainContainer>
-      <Modal>test</Modal>
+      <Modal />
     </Fragment>
   );
 };

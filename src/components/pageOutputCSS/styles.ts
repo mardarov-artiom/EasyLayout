@@ -18,6 +18,10 @@ export const ClassNameRow = styled.div`
   .style-rows-container {
     padding: 3px 0;
   }
+  
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
 
 export const StylePropertyRow = styled.div`

@@ -1,25 +1,27 @@
-import React, { Fragment, useContext } from 'react';
-import { LayoutItemsList } from 'interfaces';
-import { generateRandomId, GlobalContext } from 'globalContext';
+import React, { Fragment, ReactElement, useContext } from "react";
+import { LayoutItemsList } from "interfaces";
+import { generateRandomId, GlobalContext } from "globalContext";
 
-import { LayoutItemsContainer, ItemListContainer, ItemInfo, InputWrapper, Input, Button } from './styles';
+import { Button, Input, InputWrapper, ItemInfo, ItemListContainer, LayoutItemsContainer } from "./styles";
+import Scrollable from "components/scrollableContainer";
+import { assignColor } from "helpers/colors";
 
-const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
-  const { handleItemAddition, handleInputChange } = useContext(GlobalContext);
+const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({items}): ReactElement => {
+  const {handleItemAddition, handleInputChange} = useContext(GlobalContext);
   return (
     <Fragment>
       {items.map((item: LayoutItemsList): JSX.Element => {
-        const itemToAdd = {
+        const itemToAdd: LayoutItemsList = {
           id: generateRandomId(),
-          tagName: 'div',
-          classList: '',
-          bgColor: item.bgColor,
+          tagName: "div",
+          classList: "",
+          bgColor: assignColor(item.nestedLevel + 1),
           nestedLevel: item.nestedLevel + 1,
           styles: [],
           childrens: [],
         };
 
-        const renderItemsList = (
+        const renderItemsList: JSX.Element = (
           <ItemListContainer key={item.id} nested={item.nestedLevel}>
             <ItemInfo className="item-info">
               <InputWrapper className="tag-name" bg={item.bgColor}>
@@ -27,7 +29,7 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
                   type="text"
                   placeholder="Tag name"
                   value={item.tagName}
-                  onChange={e => handleInputChange(item, 'tagName', e.target.value)}
+                  onChange={e => handleInputChange(item, "tagName", e.target.value)}
                 />
               </InputWrapper>
               <InputWrapper className="input-classes" bg={item.bgColor}>
@@ -35,16 +37,14 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
                   type="text"
                   placeholder="Class names"
                   value={item.classList}
-                  onChange={e => handleInputChange(item, 'classList', e.target.value)}
+                  onChange={e => handleInputChange(item, "classList", e.target.value)}
                 />
               </InputWrapper>
-              <div className="button">
-                <Button type="button" onClick={() => handleItemAddition(item, itemToAdd)} bg={item.bgColor}>
-                  +
-                </Button>
-              </div>
+              <Button type="button" onClick={() => handleItemAddition(item, itemToAdd)} bg={item.bgColor}>
+                +
+              </Button>
             </ItemInfo>
-            {item.childrens && item.childrens.length > 0 && <ItemsList items={item.childrens} />}
+            {item.childrens && item.childrens.length > 0 && <ItemsList items={item.childrens}/>}
           </ItemListContainer>
         );
 
@@ -52,8 +52,9 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({ items }) => {
           return (
             <LayoutItemsContainer key={item.id} bg={item.bgColor}>
               <div className="header-info">
-                <input type="text" className="tag-name" readOnly value={item.tagName} />
-                {item.classList && <input type="text" readOnly value={item.classList} className="class-lists" />}
+                <Scrollable className="tag-name">{item.tagName}</Scrollable>
+                {item.classList &&
+                  <Scrollable className="class-lists" maxWidth={"initial"}>{item.classList}</Scrollable>}
               </div>
               {renderItemsList}
             </LayoutItemsContainer>

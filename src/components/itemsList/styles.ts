@@ -123,4 +123,5 @@ export const Button = styled.button<withBgProps>`
   max-height: 28px;
   width: 28px;
   max-width: 28px;
+  cursor: pointer;
 `;

@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import OverflowHiddenWrapper from 'components/overflowHiddenContainer';
-import ItemsList from 'components/itemsList';
-import { GlobalContext } from 'globalContext';
-import OverflowWrapper from 'components/overflowContainer';
-import PageFlexContainer from 'components/pageFlexContainer';
+import React, { ReactElement, useContext } from "react";
+import OverflowHiddenWrapper from "components/overflowHiddenContainer";
+import ItemsList from "components/itemsList";
+import { GlobalContext } from "globalContext";
+import OverflowWrapper from "components/overflowContainer";
+import PageFlexContainer from "components/pageFlexContainer";
 
-import { HeaderWrapper, ButtonContainerAddition } from './styles';
+import { ButtonContainerAddition, HeaderWrapper } from "./styles";
 
-const PageInputContainer: React.FC = () => {
-  const { layoutItemsList, handleContainerAddition } = useContext(GlobalContext);
+const PageInputContainer: React.FC = (): ReactElement => {
+  const {layoutItemsList, handleContainerAddition} = useContext(GlobalContext);
   return (
     <PageFlexContainer>
       <HeaderWrapper>
@@ -17,7 +17,7 @@ const PageInputContainer: React.FC = () => {
 
       <OverflowHiddenWrapper>
         <OverflowWrapper background="#1e1e1e">
-          <ItemsList items={layoutItemsList} />
+          <ItemsList items={layoutItemsList}/>
           <ButtonContainerAddition onClick={handleContainerAddition}>Add Container</ButtonContainerAddition>
         </OverflowWrapper>
       </OverflowHiddenWrapper>

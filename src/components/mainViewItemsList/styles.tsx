@@ -25,16 +25,7 @@ export const MainViewItemHeaderContainer = styled.div<{ bg: string }>`
   color: #fff;
   font-size: 13px;
 
-  .flex-wrapper {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  .main-class-list {
-    margin-left: 15px;
-    padding-left: 15px;
-    border-left: 1px solid #fff;
-  }
+  
 
   .settings-icon {
     width: 13px;
