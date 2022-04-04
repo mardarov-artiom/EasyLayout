@@ -23,7 +23,7 @@ export const clipboardItem = (item: LayoutItemsList, childrens: LayoutItemsList[
 
 export const reformatString = ((item: defaultObjInterface, middle: defaultObjInterface[] | LayoutItemsList[] = []): string => {
   const defaultString: string = `${item.open}${item.close}\n`;
-  const spaceBeforeTag: (nestedLevel: number) => string = (nestedLevel: number) => Array(nestedLevel * 2).fill("\xa0").join("");
+  const spaceBeforeTag: (nestedLevel: number) => string = (nestedLevel: number) => Array(nestedLevel * 2).fill('\xa0').join('');
 
   if (middle.length > 0) {
     let nestedLevel = 0;
@@ -50,5 +50,5 @@ export const reformatString = ((item: defaultObjInterface, middle: defaultObjInt
 });
 
 export const joinReformattedArray = (array: string[]) => {
-  return array.join();
+  return array.join('');
 };

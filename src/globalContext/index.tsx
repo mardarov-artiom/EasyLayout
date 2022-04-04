@@ -34,6 +34,7 @@ interface value {
   handleItemStyleAddition: (item: LayoutItemsList) => void;
   checkIfStylesHaveEmptyField: () => boolean;
   copyHtmlToClipboard: () => void;
+  copyCssToClipboard: () => void;
 }
 
 const defaultState = {
@@ -53,7 +54,8 @@ const defaultState = {
   handleModalClose: () => {},
   handleStylePropertyChange: () => {},
   checkIfStylesHaveEmptyField: () => true,
-  copyHtmlToClipboard: () => {}
+  copyHtmlToClipboard: () => {},
+  copyCssToClipboard: () => {}
 };
 
 export const generateRandomId = (): string => {
@@ -149,7 +151,7 @@ class GlobalProvider extends React.Component {
 
   public copyCssToClipboard = (): void => {
 
-    this.copyWithForceUpdate(['resultString'], 'css');
+    this.copyWithForceUpdate(['WIP'], 'css');
   };
 
   public handleItemStyleAddition = (item: LayoutItemsList): void => {
@@ -220,6 +222,7 @@ class GlobalProvider extends React.Component {
       handleItemStyleAddition: this.handleItemStyleAddition,
       checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
       copyHtmlToClipboard: this.copyHtmlToClipboard,
+      copyCssToClipboard: this.copyCssToClipboard,
     };
     return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
   }

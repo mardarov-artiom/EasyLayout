@@ -1,15 +1,13 @@
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement } from "react";
 
 import { PageOutputInternalContainer, PageOutputInternalWrapperInterface } from "./styles";
-import { GlobalContext } from "globalContext";
 
-const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = ({name, text, children}): ReactElement => {
-  const {copyHtmlToClipboard} = useContext(GlobalContext);
+const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = ({name, text, clickAction, children}): ReactElement => {
   return (
     <PageOutputInternalContainer>
       <div className="poic-header">
         <span className="poic-name">{name}</span>
-        <span className="poic-copy" onClick={copyHtmlToClipboard}>{text}</span>
+        <span className="poic-copy" onClick={clickAction}>{text}</span>
       </div>
       <div className="poic-body">{children}</div>
     </PageOutputInternalContainer>

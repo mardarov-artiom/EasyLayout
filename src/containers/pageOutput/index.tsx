@@ -7,7 +7,7 @@ import PageOutputCSS from "components/pageOutputCSS";
 import { PageOutputScrollContainer } from "./styles";
 
 const PageOutputContainer: React.FC = (): ReactElement => {
-  const {layoutItemsList, copyTextState} = useContext(GlobalContext);
+  const {layoutItemsList, copyTextState, copyHtmlToClipboard, copyCssToClipboard} = useContext(GlobalContext);
   const [ textState, setTextState ] = useState(copyTextState);
 
   useEffect(() => {
@@ -16,10 +16,10 @@ const PageOutputContainer: React.FC = (): ReactElement => {
   return (
     <PageOutputScrollContainer>
       <div>
-        <PageOutputInternalContainer name="HTML" text={textState.html}>
+        <PageOutputInternalContainer name="HTML" text={textState.html} clickAction={copyHtmlToClipboard}>
           <PageOutputHTML items={layoutItemsList}/>
         </PageOutputInternalContainer>
-        <PageOutputInternalContainer name="CSS" text={textState.css}>
+        <PageOutputInternalContainer name="CSS" text={textState.css} clickAction={copyCssToClipboard}>
           <PageOutputCSS items={layoutItemsList}/>
         </PageOutputInternalContainer>
       </div>
