@@ -4,7 +4,7 @@ import copy from "clipboard-copy";
 
 import { defaultObjInterface, LayoutInputRow, LayoutItemsList } from "interfaces";
 import { assignColor } from "helpers/colors";
-import { clipboardItem, joinReformattedArray, reformatString } from "../helpers/clipboard";
+import { clipboardItem, joinReformattedArray, reformatString } from "helpers/clipboard";
 
 export const defaultLayoutObject: LayoutItemsList = {
   id: "",
