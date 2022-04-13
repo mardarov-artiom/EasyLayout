@@ -17,7 +17,6 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({items}): ReactElemen
           classList: "",
           bgColor: assignColor(item.nestedLevel + 1),
           nestedLevel: item.nestedLevel + 1,
-          styles: [],
           childrens: [],
         };
 

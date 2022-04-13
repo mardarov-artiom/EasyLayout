@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 
-import { ScrollableWrapper, ScrollableWrapperInterface } from "./styles";
+import { ScrollableWrapperInterface } from "interfaces";
+
+import { ScrollableWrapper } from "./styles";
 
 const Scrollable: React.FC<ScrollableWrapperInterface> = ({maxWidth, offset, children, ...props}): ReactElement => {
   return (

@@ -20,7 +20,7 @@ const PageOutputContainer: React.FC = (): ReactElement => {
           <PageOutputHTML items={layoutItemsList}/>
         </PageOutputInternalContainer>
         <PageOutputInternalContainer name="CSS" text={textState.css} clickAction={copyCssToClipboard}>
-          <PageOutputCSS items={layoutItemsList}/>
+          <PageOutputCSS />
         </PageOutputInternalContainer>
       </div>
     </PageOutputScrollContainer>

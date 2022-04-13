@@ -1,29 +1,31 @@
 import React, { Fragment, ReactElement } from "react";
-import { LayoutItemsList } from "interfaces";
+import { LayoutItemsList, PageOutputHTMLInterface } from "interfaces";
 
-import { PageOutputHTMLInterface, PageOutputHTMLWrapper } from "./styles";
+import { PageOutputHTMLWrapper } from "./styles";
+import { generateRandomId } from "globalContext";
+import { classNames } from "helpers/classNamesMap";
 
 const PageOutputHTML: React.FC<PageOutputHTMLInterface> = ({items}): ReactElement => {
   return (
     <Fragment>
       {items.map((item: LayoutItemsList): JSX.Element => {
         const itemRow = (
-          <Fragment>
+          <Fragment key={generateRandomId () + item.id}>
             <span>
               <span>&nbsp;</span>
               <span className="por-attr">class</span>
               <span>{`="`}</span>
-              <span className="por-class-names">{item.classList}</span>
+              <span className="por-class-names">{classNames(item,' ')}</span>
               <span>"</span>
             </span>
           </Fragment>
         );
         return (
           <PageOutputHTMLWrapper
-            key={item.id}
+            key={generateRandomId() + item.id}
             childrens={item.childrens}
             className={item.childrens && "inner-with-child"}
-            classList={item.classList}
+            classList={classNames(item,' ')}
           >
             <span>{"<"}</span>
             <span className="por-tag">{item.tagName}</span>

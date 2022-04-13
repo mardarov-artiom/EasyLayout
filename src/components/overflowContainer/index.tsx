@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 
-import { OverflowWrapperContainer, OverflowHiddenContainerInterface } from './styles';
+import { OverflowHiddenContainerInterface } from 'interfaces';
+import { OverflowWrapperContainer } from './styles';
 
 const OverflowContainer: React.FC<OverflowHiddenContainerInterface> = ({ padding, background, children }): ReactElement => {
   return (

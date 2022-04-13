@@ -1,27 +1,19 @@
 import styled from 'styled-components';
 
-export interface PageOutputInternalWrapperInterface {
-  name?: string;
-  text: string;
-  clickAction: () => void;
-}
-
 export const PageOutputInternalContainer = styled.div`
   background-color: #151515;
   max-height: 100%;
   width: 100%;
-  padding: 10px;
   color: #e0e0e0;
   margin-bottom: 15px;
   min-width: 300px;
-  overflow-x: auto;
-
+  
   .poic-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    margin-bottom: 10px;
+    padding: 10px 10px 0 10px;
   }
 
   .poic-copy {
@@ -31,4 +23,18 @@ export const PageOutputInternalContainer = styled.div`
   .poic-body {
     width: 100%;
   }
+`;
+
+export const ScrollContainer = styled.div`
+  max-height: 100%;
+  width: 100%;
+  min-width: 300px;
+  overflow-x: auto;
+`;
+
+export const ScrollInner = styled.div`
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
 `;

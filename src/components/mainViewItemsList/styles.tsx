@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import { LayoutItemsList } from 'interfaces';
-
-interface MainViewItemMainContainerInterface {
-  childrens: LayoutItemsList[];
-}
+import { MainViewItemMainContainerInterface } from 'interfaces';
 
 export const MainViewItemContainer = styled.div`
   display: flex;
@@ -24,9 +20,7 @@ export const MainViewItemHeaderContainer = styled.div<{ bg: string }>`
   border-top-right-radius: 5px;
   color: #fff;
   font-size: 13px;
-
   
-
   .settings-icon {
     width: 13px;
     height: 13px;
@@ -50,12 +44,7 @@ export const MainViewItemMainContainer = styled.div<MainViewItemMainContainerInt
   border-bottom-right-radius: 5px;
   padding: 15px;
   overflow: hidden;
-  ${props =>
-    props.childrens.length > 0 &&
-    `
-    display: flex;
-  
-  `}
+  ${props => props.childrens.length > 0 && `display: flex;`}
 
   div:not(:last-child, .main-tag-names) {
     margin-right: 10px;

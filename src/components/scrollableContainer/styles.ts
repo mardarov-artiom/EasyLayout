@@ -1,11 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-export interface ScrollableWrapperInterface extends React.HTMLAttributes<HTMLDivElement> {
-  maxWidth?: string;
-  display?: string;
-  offset?: number;
-}
+import { ScrollableWrapperInterface } from 'interfaces';
 
 export const ScrollableWrapper = styled.div<ScrollableWrapperInterface>`
   width: ${props => props.maxWidth || '100%'};

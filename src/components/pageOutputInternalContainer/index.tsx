@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 
-import { PageOutputInternalContainer, PageOutputInternalWrapperInterface } from "./styles";
+import { PageOutputInternalWrapperInterface } from "interfaces";
+
+import { PageOutputInternalContainer, ScrollContainer, ScrollInner } from "./styles";
 
 const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = ({name, text, clickAction, children}): ReactElement => {
   return (
@@ -9,7 +11,11 @@ const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = 
         <span className="poic-name">{name}</span>
         <span className="poic-copy" onClick={clickAction}>{text}</span>
       </div>
-      <div className="poic-body">{children}</div>
+      <ScrollContainer>
+        <ScrollInner>
+            <div className="poic-body">{children}</div>
+        </ScrollInner>
+      </ScrollContainer>
     </PageOutputInternalContainer>
   );
 };

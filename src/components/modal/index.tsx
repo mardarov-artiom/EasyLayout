@@ -1,8 +1,8 @@
 import React, { ReactElement, useContext } from "react";
 
 import { generateRandomId, GlobalContext } from "globalContext";
-import Scrollable from "components/scrollableContainer";
 import ModalInputRow from "components/modalInputRow";
+import { defaultStyleObjectInterface } from "interfaces";
 
 import {
   CloseButton,
@@ -16,7 +16,6 @@ import {
   ModalContentStylesList,
   ModalWrapper
 } from "./styles";
-import { LayoutInputRow } from "../../interfaces";
 
 const Modal: React.FC = (): ReactElement => {
   const {
@@ -35,13 +34,9 @@ const Modal: React.FC = (): ReactElement => {
     <ModalWrapper modalState={isModalOpen}>
       <ModalBackground onClick={() => handleModalClose()}/>
       <ModalContent>
-        <ModalContentHeader bg={modalContent.bgColor}>
+        <ModalContentHeader>
           <div className="flex-wrapper">
-            <div className="main-tag-names">{modalContent.tagName}</div>
-            <div className="main-class-list">
-              {modalContent.classList && modalContent.classList.length > 0 && "class:"} {<Scrollable
-              offset={5}>{modalContent.classList}</Scrollable>}
-            </div>
+            <div className="main-tag-names">class: {modalContent.className}</div>
           </div>
           <CloseButton onClick={() => handleModalClose()}/>
         </ModalContentHeader>
@@ -54,7 +49,7 @@ const Modal: React.FC = (): ReactElement => {
           }
           <ModalContentStylesList>
             {modalContent.styles && modalContent.styles.length > 0 && (
-              modalContent.styles.map((style: LayoutInputRow) => {
+              modalContent.styles.map((style: defaultStyleObjectInterface) => {
                 return (
                   <ModalContentBodyRow key={`${generateRandomId()}${style.property}${style.value}`}>
                     {modalContent.styles && modalContent.styles.length > 0 && (

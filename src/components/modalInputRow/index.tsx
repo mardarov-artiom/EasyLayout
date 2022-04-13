@@ -1,15 +1,17 @@
 import React, { Fragment, ReactElement, useContext, useEffect, useState } from "react";
 
 import { GlobalContext } from "globalContext";
-import { LayoutInputRow } from "interfaces";
+import { defaultStyleObjectInterface } from "interfaces";
 
-const ModalInputRow: React.FC<{ styleProps: LayoutInputRow }> = ({styleProps, ...props}): ReactElement => {
+const ModalInputRow: React.FC<{ styleProps: defaultStyleObjectInterface }> = ({styleProps, ...props}): ReactElement => {
   const {modalContent, handleStylePropertyChange} = useContext(GlobalContext);
 
   const [defaultStyles] = useState(styleProps);
   const [styleProperty, setStyleProp] = useState<string>("");
-  const [styleValue, setStyleValue] = useState<string | number>("");
+  const [styleValue, setStyleValue] = useState<string>("");
   const [inputChanged, setInputChanged] = useState(false);
+  const [stylePropChanged, setStylePropChanged] = useState(false);
+  const [styleValueChanged, setStyleValueChanged] = useState(false);
 
   useEffect(() => {
     setStyleProp(styleProps.property);
@@ -20,22 +22,29 @@ const ModalInputRow: React.FC<{ styleProps: LayoutInputRow }> = ({styleProps, ..
     return modalContent.styles.findIndex((s: any) => s.property === styleProps.property && s.value === styleProps.value);
   };
 
-  const objectToSubmit = (): {property: string, value: string | number} => {
-    return {property: styleProperty, value: styleValue};
+  const objectToSubmit = (): defaultStyleObjectInterface => {
+    return {
+      property: styleProperty.trim(),
+      value: styleValue.trim()
+    };
   };
 
   const saveStyleToGlobalState = (): void => {
     handleStylePropertyChange(modalContent, getElementIndex(), false, objectToSubmit());
     setInputChanged(false);
+    setStylePropChanged(false);
+    setStyleValueChanged(false);
   };
 
   const inputHaveChanged = (property: string, newValue: string) : void => {
     setInputChanged(true);
     if (property === "property") {
       setStyleProp(newValue);
+      setStylePropChanged(true);
     }
     if (property === "value") {
       setStyleValue(newValue);
+      setStyleValueChanged(true);
     }
   };
 
@@ -43,6 +52,8 @@ const ModalInputRow: React.FC<{ styleProps: LayoutInputRow }> = ({styleProps, ..
     setStyleProp(defaultStyles.property);
     setStyleValue(defaultStyles.value);
     setInputChanged(false);
+    setStylePropChanged(false);
+    setStyleValueChanged(false);
   };
 
   const removeStyle = (): void => {

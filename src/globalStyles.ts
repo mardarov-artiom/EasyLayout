@@ -65,6 +65,10 @@ const GlobalStyle = createGlobalStyle`
     &.success {
       background-color: #28a745;
     }
+
+    &.cancel {
+      background-color: #304ffe;
+    }
     
     &.danger {
       background-color: #dc3545;

@@ -1,56 +1,40 @@
-import React, { Fragment, ReactElement } from "react";
-import { LayoutItemsList } from "interfaces";
+import React, {  ReactElement, useContext } from "react";
+import { defaultStyleObjectInterface, uniqueClassListInterface } from "interfaces";
 
-import { ClassNameRow, PageOutputCSSInterface, PageOutputCSSWrapper, StylePropertyRow } from "./styles";
-import { generateRandomId } from "globalContext";
+import { ClassNameRow, PageOutputCSSWrapper, StylePropertyRow } from "./styles";
+import { generateRandomId, GlobalContext } from "globalContext";
 
-const PageOutputHTML: React.FC<PageOutputCSSInterface> = ({items}): ReactElement => {
+const PageOutputCSS: React.FC = (): ReactElement => {
+  const { uniqueClassList, handleModalOpen } = useContext(GlobalContext);
   return (
     <PageOutputCSSWrapper>
-      <Fragment>
-        {items.map((item: LayoutItemsList) => {
-          const classNames: (false | JSX.Element)[] = item.classList.split(" ").map((className: string) => {
-            return className !== "" && <span key={item.id + className}>.{className}</span>;
-          });
-          return (
-            <Fragment key={item.id}>
-              {item.classList.length > 0 && (
-                <ClassNameRow>
-                  <div>
-                    {classNames} {` {`}
-                  </div>
-
-                  {item.styles && item.styles.length > 0 && (
-                    <div className="style-rows-container">
-                      {item.styles.map((style: { property: string, value: string | number }) => {
-                        return (
-                          style.property.length > 0 && (
-                            <StylePropertyRow key={`${generateRandomId()}${style.property}${style.value}`}>
-                              <span className="property">{style.property}</span>
-                              {`: `}
-                              <span className="value">{style.value}</span>
-                              {`;`}
-                            </StylePropertyRow>)
-                        );
-                      })}
-                    </div>
-                  )}
-                  {item.classList.length > 0 && `}`}
-                </ClassNameRow>
-              )}
-            </Fragment>
-          );
-        })}
-        {items.map((item: LayoutItemsList): JSX.Element => {
-          return (
-            <Fragment key={item.id}>
-              {item.childrens && item.childrens.length > 0 && <PageOutputHTML items={item.childrens}/>}
-            </Fragment>
-          );
-        })}
-      </Fragment>
+      {uniqueClassList.map((cls: uniqueClassListInterface) => {
+        return (
+          <ClassNameRow key={cls.className} onClick={() => handleModalOpen(cls)}>
+          {`.${cls.className} {`}
+          <br />
+          {cls.styles && cls.styles.length > 0 && (
+            <div className="style-rows-container">
+              {cls.styles.map((style: defaultStyleObjectInterface) => {
+                return (
+                  style.property.length > 0 && (
+                    <StylePropertyRow
+                      key={`${generateRandomId()}${style.property}${style.value}`}>
+                      <span className="property">{style.property}</span>
+                      {`: `}
+                      <span className="value">{style.value}</span>
+                      {`;`}
+                    </StylePropertyRow>)
+                );
+              })}
+            </div>
+          )}
+          {'}'}
+        </ClassNameRow>
+        )
+      })}
     </PageOutputCSSWrapper>
   );
 };
 
-export default PageOutputHTML;
+export default PageOutputCSS;

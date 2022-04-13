@@ -2,23 +2,38 @@ import { defaultObjInterface, LayoutItemsList } from "interfaces";
 
 export const openTag = (item: LayoutItemsList): string => `<${item.tagName}${item.classList.length > 0 ? ` class="${item.classList}"` : ""}>`;
 export const closeTag = (item: LayoutItemsList): string => `</${item.tagName}>`;
+export const cssOpenProp = (item: LayoutItemsList): string => `.${item} {`
 
-export const clipboardItem = (item: LayoutItemsList, childrens: LayoutItemsList[] = []): defaultObjInterface => {
+export const clipboardHTMLItem = (item: LayoutItemsList, childrens: LayoutItemsList[] = []): defaultObjInterface => {
   const defaultObj: defaultObjInterface = {
     id: item.id,
     open: openTag(item),
     middle: childrens,
     close: closeTag(item),
-    nestedLevel: item.nestedLevel
+    nestedLevel: item.nestedLevel,
   };
   if (childrens.length > 0) {
     const result: defaultObjInterface[] = [];
     childrens.map((item: any) => {
-      return result.push(clipboardItem(item, item.childrens));
+      return result.push(clipboardHTMLItem(item, item.childrens));
     });
     return {...defaultObj, middle: [...result]};
   }
   return defaultObj;
+};
+
+export const clipboardCSSItem = (item: any): any => {
+  const defaultObj: any = {
+    open: cssOpenProp(item.className),
+    props: [],
+    close: '}'
+  };
+  item.styles.map((styles: any) => {
+    const propsAreNotEmpty = styles.property !== '' || styles.value !== '';
+    propsAreNotEmpty && defaultObj.props.push(`  ${styles.property}: ${styles.value};\n`);
+    return true;
+  })
+  return `${defaultObj.open}\n${defaultObj.props.join('')}${defaultObj.close}\n\n`;
 };
 
 export const reformatString = ((item: defaultObjInterface, middle: defaultObjInterface[] | LayoutItemsList[] = []): string => {

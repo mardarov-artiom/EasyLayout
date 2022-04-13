@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-export interface ModalState {
-  modalState: boolean;
-}
-
-export interface ModalContentHeaderInterface {
-  bg: string;
-}
+import { ModalState } from 'interfaces';
 
 export const ModalWrapper = styled.div<ModalState>`
   width: 100%;
@@ -40,14 +34,14 @@ export const ModalContent = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-export const ModalContentHeader = styled.div<ModalContentHeaderInterface>`
+export const ModalContentHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-color: ${props => props.bg || '#1d1d1d'};
+  background-color: #1d1d1d;
   color: #fff;
 `;
 
@@ -73,8 +67,6 @@ export const ModalContentBodyTitle = styled.div`
   div {
     width: 240px;
     text-align: center;
-    
-    
   }
 `;
 
@@ -129,8 +121,9 @@ export const ModalContentBodyRow = styled.div`
     color: #000;
     border: 1px solid #ccc;
     margin: 5px;
-    padding: 5px;
+    padding: 5px 10px;
     width: 240px;
+    border-radius: 5px;
   }
 `;
 
@@ -140,6 +133,5 @@ export const ModalContentBodyStyleAddition = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 15px;
-
 `;
 

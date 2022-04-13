@@ -1,12 +1,6 @@
 import styled from 'styled-components';
 
-interface ItemListContainerInterface {
-  nested: number;
-}
-
-interface withBgProps {
-  bg: string;
-}
+import { ItemListContainerInterface, withBgProps } from 'interfaces';
 
 export const LayoutItemsContainer = styled.div<withBgProps>`
   width: 100%;
@@ -14,7 +8,6 @@ export const LayoutItemsContainer = styled.div<withBgProps>`
   padding: 15px;
   min-width: 350px;
   border-bottom: 1px dashed ${props => props.bg};
-  color: #fff;
   font-size: 20px;
 
   .header-info {

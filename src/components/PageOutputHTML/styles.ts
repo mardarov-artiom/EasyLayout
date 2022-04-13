@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import { LayoutItemsList } from 'interfaces';
 
-export interface PageOutputHTMLInterface {
-  items: LayoutItemsList[];
-}
-
-export const PageOutputHTMLWrapper = styled.div<{ childrens: LayoutItemsList[]; classList?: string }>`
+export const PageOutputHTMLWrapper = styled.div<{ childrens: LayoutItemsList[]; classList?: string | string[] }>`
   width: 100%;
   display: flex;
   justify-content: flex-start;

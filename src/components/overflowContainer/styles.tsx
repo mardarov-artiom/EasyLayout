@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export interface OverflowHiddenContainerInterface {
-  padding?: number;
-  background?: string;
-}
+import { OverflowHiddenContainerInterface } from 'interfaces';
 
 export const OverflowWrapperContainer = styled.div<OverflowHiddenContainerInterface>`
   width: 100%;
