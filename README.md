@@ -1,25 +1,25 @@
-#Project demo - [GitHub Pages.](https://mardarov-artiom.github.io/EasyLayout/)
+# Project demo - [GitHub Pages.](https://mardarov-artiom.github.io/EasyLayout/)
 
 ---
 
-##Description:
+## Description:
 
-####Project is made for creating easy HTML layouts.
+#### Project is made for creating easy HTML layouts.
 
 Easily build templates for web pages.<br>
 After building, copy and paste markup and styles into destination project.
 
 ---
 
-##Open source:
+## Open source:
 
 Project is fully open source. feel free to experiment.<br>
 
 ---
 
-##Technology stack:
+## Technology stack:
 
-###Project was created with [`create-react-app`](https://create-react-app.dev/) using typescript presset.
+### Project was created with [`create-react-app`](https://create-react-app.dev/) using typescript presset.
 
 As global state is used [React](https://reactjs.org/) built-in technology - [Global Context.](https://reactjs.org/docs/context.html)
 
@@ -27,9 +27,9 @@ For dynamic components styles is used [Styled Components](https://styled-compone
 
 ---
 
-##Installation:
+## Installation:
 
-###Project is based on  [Node Package Manager (npm)](https://www.npmjs.com/).
+### Project is based on  [Node Package Manager (npm)](https://www.npmjs.com/).
 
 **Note: To use [npm](https://www.npmjs.com/) check if  [Node.js](https://nodejs.org/en/) is installed.**
 
@@ -43,11 +43,11 @@ After all dependencies are installed, **run** one of the commands below:
 
 ---
 
-##Available Scripts:
+## Available Scripts:
 
 In the project directory, you can run:
 
-###`npm start`
+### `npm start`
 
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
@@ -57,14 +57,14 @@ You will also see any lint errors in the console.
 
 ---
 
-###`npm test`
+### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 --- 
 
-###`npm run build`
+### `npm run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -76,13 +76,13 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ---
 
-###`npm run predeploy`
+### `npm run predeploy`
 
 Runs the `npm run build` script. Read above.
 
 --- 
 
-###`npm run deploy`
+### `npm run deploy`
 
 **Note: To run this script, first install github pages.**<br>
 ```
@@ -103,7 +103,7 @@ Runs the `gh-pages -d build` scripts
 
 ---
 
-###`npm run eject`
+### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
