@@ -14,10 +14,6 @@ import { clipboardCSSItem, clipboardHTMLItem, joinReformattedArray, reformatStri
 import { classNamesMap, transformResult } from "helpers/classNamesMap";
 import { defaultLayoutObject, defaultModalContent, defaultStyleObject } from "helpers/globalConstants";
 
-
-
-
-
 const defaultState = {
   isLoading: false,
   modalContent: defaultModalContent,
@@ -36,6 +32,16 @@ const defaultState = {
       ]
     }
   ],
+  globalApplicationSettings: {
+    defaultDisplayValue: {
+      label: 'Default display value',
+      value: 'flex'
+    },
+    defaultElementInFlexRow: {
+      label: 'Number of default elements in a flex row',
+      value: 3
+    },
+  },
   handleContainerAddition: () => {
   },
   handleItemAddition: () => {
@@ -175,7 +181,7 @@ class GlobalProvider extends React.Component {
   public checkIfStylesHaveEmptyField = (): boolean => {
     if (this.state.context.modalContent.styles) {
       return this.state.context.modalContent.styles.filter((style: defaultStyleObjectInterface) => {
-        return style.property.length === 0 && (typeof style.value !== "number" ? style.value.length === 0 : style.value > 0);
+        return style.property.length === 0;
       }).length > 0;
     }
     return false;
@@ -276,7 +282,7 @@ class GlobalProvider extends React.Component {
   };
 
   public render() {
-    const {isLoading, layoutItemsList, isModalOpen, modalContent, copyTextState, uniqueClassList} = this.state.context;
+    const {isLoading, layoutItemsList, isModalOpen, modalContent, copyTextState, uniqueClassList, globalApplicationSettings} = this.state.context;
     const value: value = {
       isLoading,
       isModalOpen,
@@ -284,6 +290,7 @@ class GlobalProvider extends React.Component {
       modalContent,
       copyTextState,
       uniqueClassList,
+      globalApplicationSettings,
       handleModalOpen: this.handleModalOpen,
       handleModalClose: this.handleModalClose,
       handleItemAddition: this.handleItemAddition,

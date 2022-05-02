@@ -10,6 +10,12 @@ export interface value {
   modalContent: uniqueClassListInterface;
   uniqueClassList: uniqueClassListInterface[];
   layoutItemsList: LayoutItemsList[];
+  globalApplicationSettings: {
+    [key: string]: {
+      label: string;
+      value: string | number
+    }
+  };
   handleContainerAddition: () => void;
   handleModalOpen: (item: uniqueClassListInterface) => void;
   handleModalClose: () => void;
@@ -98,6 +104,12 @@ export interface ScrollableWrapperInterface extends React.HTMLAttributes<HTMLDiv
 
 export interface MainViewItemMainContainerInterface {
   childrens: LayoutItemsList[];
+  settings: {
+    [key: string]: {
+      label: string;
+      value: string | number
+    }
+  }
 }
 
 

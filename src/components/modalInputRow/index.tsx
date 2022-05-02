@@ -10,8 +10,6 @@ const ModalInputRow: React.FC<{ styleProps: defaultStyleObjectInterface }> = ({s
   const [styleProperty, setStyleProp] = useState<string>("");
   const [styleValue, setStyleValue] = useState<string>("");
   const [inputChanged, setInputChanged] = useState(false);
-  const [stylePropChanged, setStylePropChanged] = useState(false);
-  const [styleValueChanged, setStyleValueChanged] = useState(false);
 
   useEffect(() => {
     setStyleProp(styleProps.property);
@@ -32,19 +30,15 @@ const ModalInputRow: React.FC<{ styleProps: defaultStyleObjectInterface }> = ({s
   const saveStyleToGlobalState = (): void => {
     handleStylePropertyChange(modalContent, getElementIndex(), false, objectToSubmit());
     setInputChanged(false);
-    setStylePropChanged(false);
-    setStyleValueChanged(false);
   };
 
   const inputHaveChanged = (property: string, newValue: string) : void => {
     setInputChanged(true);
     if (property === "property") {
       setStyleProp(newValue);
-      setStylePropChanged(true);
     }
     if (property === "value") {
       setStyleValue(newValue);
-      setStyleValueChanged(true);
     }
   };
 
@@ -52,8 +46,6 @@ const ModalInputRow: React.FC<{ styleProps: defaultStyleObjectInterface }> = ({s
     setStyleProp(defaultStyles.property);
     setStyleValue(defaultStyles.value);
     setInputChanged(false);
-    setStylePropChanged(false);
-    setStyleValueChanged(false);
   };
 
   const removeStyle = (): void => {
@@ -74,7 +66,6 @@ const ModalInputRow: React.FC<{ styleProps: defaultStyleObjectInterface }> = ({s
               disabled={inputChanged}>Delete
       </button>
     </Fragment>
-
   );
 };
 

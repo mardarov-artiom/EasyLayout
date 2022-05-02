@@ -101,6 +101,10 @@ const GlobalStyle = createGlobalStyle`
       right: 5px;
     }
   }
+  
+  .page-output-wrapper > div:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export default GlobalStyle;

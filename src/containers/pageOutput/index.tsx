@@ -15,7 +15,7 @@ const PageOutputContainer: React.FC = (): ReactElement => {
   }, [copyTextState])
   return (
     <PageOutputScrollContainer>
-      <div>
+      <div className="page-output-wrapper">
         <PageOutputInternalContainer name="HTML" text={textState.html} clickAction={copyHtmlToClipboard}>
           <PageOutputHTML items={layoutItemsList}/>
         </PageOutputInternalContainer>

@@ -1,10 +1,12 @@
-import React, { Fragment, ReactElement } from "react";
+import React, { Fragment, ReactElement, useContext } from "react";
 import { LayoutItemsList } from "interfaces";
 import Scrollable from "components/scrollableContainer";
 
 import { MainViewItemContainer, MainViewItemHeaderContainer, MainViewItemMainContainer } from "./styles";
+import { GlobalContext } from "../../globalContext";
 
 const MainViewItemsList: React.FC<{ items: LayoutItemsList[] }> = ({items}): ReactElement => {
+  const { globalApplicationSettings } = useContext(GlobalContext);
   return (
     <Fragment>
       {items.map((item: LayoutItemsList): JSX.Element => {
@@ -18,7 +20,7 @@ const MainViewItemsList: React.FC<{ items: LayoutItemsList[] }> = ({items}): Rea
                 </div>
               </div>
             </MainViewItemHeaderContainer>
-            <MainViewItemMainContainer childrens={item.childrens}>
+            <MainViewItemMainContainer childrens={item.childrens} settings={globalApplicationSettings}>
               {item.childrens && item.childrens.length > 0 && <MainViewItemsList items={item.childrens}/>}
             </MainViewItemMainContainer>
           </MainViewItemContainer>
