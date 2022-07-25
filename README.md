@@ -1,4 +1,4 @@
-# Project demo - [GitHub Pages.](https://mardarov-artiom.github.io/EasyLayout/)
+# Project demo - [Netlify App.](https://easy-layout.netlify.app/)
 
 ---
 
