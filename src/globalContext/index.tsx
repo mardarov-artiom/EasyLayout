@@ -1,66 +1,53 @@
 /* eslint-disable react/no-direct-mutation-state */
-import React from "react";
-import copy from "clipboard-copy";
+import React from 'react';
+import copy from 'clipboard-copy';
 
-import {
-  value,
-  defaultObjInterface,
-  defaultStyleObjectInterface,
-  LayoutItemsList,
-  uniqueClassListInterface
-} from "interfaces";
-import { assignColor } from "helpers/colors";
-import { clipboardCSSItem, clipboardHTMLItem, joinReformattedArray, reformatString } from "helpers/clipboard";
-import { classNamesMap, transformResult } from "helpers/classNamesMap";
-import { defaultLayoutObject, defaultModalContent, defaultStyleObject } from "helpers/globalConstants";
+import { defaultObjInterface, defaultStyleObjectInterface, LayoutItemsList, uniqueClassListInterface } from 'interfaces/default';
+import { GlobalContextStateInterface, value } from 'interfaces/globalContext';
 
-const defaultState = {
+import { assignColor } from 'helpers/colors';
+import { clipboardCSSItem, clipboardHTMLItem, joinReformattedArray, reformatString } from 'helpers/clipboard';
+import { classNamesMap, transformResult } from 'helpers/classNamesMap';
+import { defaultLayoutObject, defaultModalContent, defaultStyleObject } from 'helpers/globalConstants';
+
+const defaultState: value = {
   isLoading: false,
   modalContent: defaultModalContent,
   isModalOpen: false,
   copyTextState: {
-    html: "Copy",
-    css: "Copy",
+    html: 'Copy',
+    css: 'Copy',
   },
   layoutItemsList: [defaultLayoutObject],
   uniqueClassList: [
     {
-      className: "container",
+      className: 'container',
       styles: [
-        {property: "width", value: 100 + "%"},
-        {property: "border", value: "2px solid red"}
-      ]
-    }
+        {property: 'width', value: 100 + '%'},
+        {property: 'border', value: '2px solid red'},
+      ],
+    },
   ],
   globalApplicationSettings: {
     defaultDisplayValue: {
       label: 'Default display value',
-      value: 'flex'
+      value: 'flex',
     },
     defaultElementInFlexRow: {
       label: 'Number of default elements in a flex row',
-      value: 3
+      value: 3,
     },
   },
-  handleContainerAddition: () => {
-  },
-  handleItemAddition: () => {
-  },
-  handleItemStyleAddition: () => {
-  },
-  handleInputChange: () => {
-  },
-  handleModalOpen: () => {
-  },
-  handleModalClose: () => {
-  },
-  handleStylePropertyChange: () => {
-  },
+  handleContainerAddition: () => {},
+  handleItemAddition: () => {},
+  handleItemStyleAddition: () => {},
+  handleInputChange: () => {},
+  handleModalOpen: () => {},
+  handleModalClose: () => {},
+  handleStylePropertyChange: () => {},
   checkIfStylesHaveEmptyField: () => true,
-  copyHtmlToClipboard: () => {
-  },
-  copyCssToClipboard: () => {
-  }
+  copyHtmlToClipboard: () => {},
+  copyCssToClipboard: () => {},
 };
 
 export const generateRandomId = (): string => {
@@ -70,16 +57,18 @@ export const generateRandomId = (): string => {
 
 const GlobalContext = React.createContext<value>(defaultState);
 
-const reactiveStateProxy = (component: any) =>
-  new Proxy(defaultState, {
+const reactiveStateProxy = (component: any) => {
+  return new Proxy(defaultState, {
     set(obj: any, prop: any, value) {
       obj[prop] = value;
       component.setState({context: reactiveStateProxy(component)});
       return true;
     },
   });
+};
 
-class GlobalProvider extends React.Component {
+
+class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalContextStateInterface> {
   state = {
     context: reactiveStateProxy(this),
   };
@@ -94,24 +83,13 @@ class GlobalProvider extends React.Component {
     this.state.context.layoutItemsList = [
       {
         id: generateRandomId(),
-        tagName: "div",
-        classList: "container",
+        tagName: 'div',
+        classList: 'container',
         bgColor: assignColor(0),
         nestedLevel: 0,
-        childrens: [],
+        nodes: [],
       },
     ];
-  };
-
-  private classListCssMap = () => {
-    let result: string = "";
-    this.state.context.layoutItemsList.map((item: LayoutItemsList) => {
-      if (item.childrens && item.childrens.length > 0) {
-        return result += ` ${classNamesMap(item, item.childrens)}`;
-      }
-      return result += ` ${classNamesMap(item)}`;
-    });
-    this.state.context.uniqueClassList = transformResult(result, this.state.context.uniqueClassList);
   };
 
   public handleContainerAddition = (): void => {
@@ -122,33 +100,23 @@ class GlobalProvider extends React.Component {
       (stateCopy: LayoutItemsList[]) => {
         stateCopy.push(newLayoutItem);
       },
-      true
+      true,
     );
     this.classListCssMap();
   };
 
   public handleItemAddition = (item: LayoutItemsList, newItem: LayoutItemsList): void => {
     this.modifyLayoutItemsState(item, (elem: LayoutItemsList) => {
-      elem?.childrens.push(newItem);
+      elem?.nodes.push(newItem);
     });
     this.classListCssMap();
-  };
-
-  private copyWithForceUpdate = (array: string[], property: string): void => {
-    copy(joinReformattedArray(array)).then(() => {
-      this.state.context.copyTextState[property] = "Copied!";
-      this.forceUpdate();
-      window.setTimeout(() => {
-        this.state.context.copyTextState[property] = "Copy!";
-      }, 2000);
-    });
   };
 
   public copyHtmlToClipboard = (): void => {
     const resultArray: defaultObjInterface[] = [];
     this.state.context.layoutItemsList.map((item: LayoutItemsList) => {
-      if (item.childrens && item.childrens.length > 0) {
-        return resultArray.push(clipboardHTMLItem(item, item.childrens));
+      if (item.nodes && item.nodes.length > 0) {
+        return resultArray.push(clipboardHTMLItem(item, item.nodes));
       }
       return resultArray.push(clipboardHTMLItem(item));
     });
@@ -160,7 +128,7 @@ class GlobalProvider extends React.Component {
       return reformatString(item);
     });
 
-    this.copyWithForceUpdate(resultString, "html");
+    this.copyWithForceUpdate(resultString, 'html');
   };
 
   public copyCssToClipboard = (): void => {
@@ -169,14 +137,13 @@ class GlobalProvider extends React.Component {
       return resultArray.push(clipboardCSSItem(item));
     });
     const slicedArray = resultArray.map((el: any, index: number) => {
-      if(index === resultArray.length - 1) {
+      if (index === resultArray.length - 1) {
         return el.slice(0, -2);
       }
-      return el
+      return el;
     });
-    this.copyWithForceUpdate(slicedArray, "css");
+    this.copyWithForceUpdate(slicedArray, 'css');
   };
-
 
   public checkIfStylesHaveEmptyField = (): boolean => {
     if (this.state.context.modalContent.styles) {
@@ -192,7 +159,7 @@ class GlobalProvider extends React.Component {
       elem[field] = value;
     });
 
-    if (field === "classList") {
+    if (field === 'classList') {
       this.classListCssMap();
     }
   };
@@ -230,6 +197,59 @@ class GlobalProvider extends React.Component {
     });
   };
 
+  public render() {
+    const {
+      isLoading,
+      layoutItemsList,
+      isModalOpen,
+      modalContent,
+      copyTextState,
+      uniqueClassList,
+      globalApplicationSettings,
+    } = this.state.context;
+    const value: value = {
+      isLoading,
+      isModalOpen,
+      layoutItemsList,
+      modalContent,
+      copyTextState,
+      uniqueClassList,
+      globalApplicationSettings,
+      handleModalOpen: this.handleModalOpen,
+      handleModalClose: this.handleModalClose,
+      handleItemAddition: this.handleItemAddition,
+      handleInputChange: this.handleInputChange,
+      handleContainerAddition: this.handleContainerAddition,
+      handleStylePropertyChange: this.handleStylePropertyChange,
+      handleItemStyleAddition: this.handleItemStyleAddition,
+      checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
+      copyHtmlToClipboard: this.copyHtmlToClipboard,
+      copyCssToClipboard: this.copyCssToClipboard,
+    };
+    return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
+  }
+
+  private classListCssMap = () => {
+    let result: string = '';
+    this.state.context.layoutItemsList.map((item: LayoutItemsList) => {
+      if (item.nodes && item.nodes.length > 0) {
+        return result += ` ${classNamesMap(item, item.nodes)}`;
+      }
+      return result += ` ${classNamesMap(item)}`;
+    });
+    this.state.context.uniqueClassList = transformResult(result, this.state.context.uniqueClassList);
+  };
+
+  private copyWithForceUpdate = (array: string[], property: string): void => {
+    copy(joinReformattedArray(array)).then(() => {
+      this.state.context.copyTextState[property] = 'Copied!';
+      this.forceUpdate();
+      window.setTimeout(() => {
+        this.state.context.copyTextState[property] = 'Copy!';
+      }, 2000);
+    });
+  };
+
   private resetStateToDefault = () => {
     this.state.context.isLoading = false;
     this.state.context.isModalOpen = false;
@@ -263,8 +283,8 @@ class GlobalProvider extends React.Component {
       if (item.id === itemId) {
         return item;
       }
-      if (item["childrens"]) {
-        return this.getCurrentItem(item["childrens"], itemId);
+      if (item['nodes']) {
+        return this.getCurrentItem(item['nodes'], itemId);
       }
       return null;
     }, null);
@@ -280,30 +300,6 @@ class GlobalProvider extends React.Component {
     }
     this.state.context.layoutItemsList = stateCopy;
   };
-
-  public render() {
-    const {isLoading, layoutItemsList, isModalOpen, modalContent, copyTextState, uniqueClassList, globalApplicationSettings} = this.state.context;
-    const value: value = {
-      isLoading,
-      isModalOpen,
-      layoutItemsList,
-      modalContent,
-      copyTextState,
-      uniqueClassList,
-      globalApplicationSettings,
-      handleModalOpen: this.handleModalOpen,
-      handleModalClose: this.handleModalClose,
-      handleItemAddition: this.handleItemAddition,
-      handleInputChange: this.handleInputChange,
-      handleContainerAddition: this.handleContainerAddition,
-      handleStylePropertyChange: this.handleStylePropertyChange,
-      handleItemStyleAddition: this.handleItemStyleAddition,
-      checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
-      copyHtmlToClipboard: this.copyHtmlToClipboard,
-      copyCssToClipboard: this.copyCssToClipboard,
-    };
-    return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
-  }
 }
 
 export { GlobalContext, GlobalProvider };

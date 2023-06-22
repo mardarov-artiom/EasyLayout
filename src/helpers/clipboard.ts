@@ -1,21 +1,21 @@
-import { defaultObjInterface, LayoutItemsList } from "interfaces";
+import { defaultObjInterface, LayoutItemsList } from "interfaces/default";
 
 export const openTag = (item: LayoutItemsList): string => `<${item.tagName}${item.classList.length > 0 ? ` class="${item.classList}"` : ""}>`;
 export const closeTag = (item: LayoutItemsList): string => `</${item.tagName}>`;
 export const cssOpenProp = (item: LayoutItemsList): string => `.${item} {`
 
-export const clipboardHTMLItem = (item: LayoutItemsList, childrens: LayoutItemsList[] = []): defaultObjInterface => {
+export const clipboardHTMLItem = (item: LayoutItemsList, nodes: LayoutItemsList[] = []): defaultObjInterface => {
   const defaultObj: defaultObjInterface = {
     id: item.id,
     open: openTag(item),
-    middle: childrens,
+    middle: nodes,
     close: closeTag(item),
     nestedLevel: item.nestedLevel,
   };
-  if (childrens.length > 0) {
+  if (nodes.length > 0) {
     const result: defaultObjInterface[] = [];
-    childrens.map((item: any) => {
-      return result.push(clipboardHTMLItem(item, item.childrens));
+    nodes.map((item: any) => {
+      return result.push(clipboardHTMLItem(item, item.nodes));
     });
     return {...defaultObj, middle: [...result]};
   }

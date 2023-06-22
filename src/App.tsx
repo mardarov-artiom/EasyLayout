@@ -2,12 +2,12 @@ import React, { Fragment, ReactElement, useContext } from "react";
 import GlobalStyle from "globalStyles";
 
 import { GlobalContext } from "globalContext";
-import Modal from "components/modal";
+import Modal from "components/common/modal";
 import PageInputContainer from "containers/pageInput";
 import MainViewContainer from "containers/mainView";
 import PageOutputContainer from "containers/pageOutput";
 import { Container, Section, Bar } from "react-simple-resizer";
-import PageMainContainer from "components/pageMainContainer";
+import PageMainContainer from "components/pageLayouts/pageMainContainer";
 
 import "normalize.css";
 import "Grid.scss";

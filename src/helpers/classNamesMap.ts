@@ -1,4 +1,4 @@
-import { LayoutItemsList, uniqueClassListInterface } from "interfaces";
+import { LayoutItemsList, uniqueClassListInterface } from "interfaces/default";
 import { defaultStyleObject } from "./globalConstants";
 
 export const classNames = (item: LayoutItemsList, joinBy: string = ""): string | string[] => {
@@ -11,7 +11,7 @@ export const classNames = (item: LayoutItemsList, joinBy: string = ""): string |
   return result.join(joinBy);
 };
 
-export const classNamesMap = (item: LayoutItemsList, childrens: LayoutItemsList[] = []): string => {
+export const classNamesMap = (item: LayoutItemsList, nodes: LayoutItemsList[] = []): string => {
   let result: string = "";
   item.classList.trim().split(" ").map((className: string) => {
     if (className !== "") {
@@ -20,10 +20,10 @@ export const classNamesMap = (item: LayoutItemsList, childrens: LayoutItemsList[
     return true;
   });
 
-  if (childrens && childrens.length > 0) {
+  if (nodes && nodes.length > 0) {
     let nestedResult: any = "";
-    childrens.map((item: any) => {
-      return nestedResult += ` ${classNamesMap(item, item.childrens)}`;
+    nodes.map((item: any) => {
+      return nestedResult += ` ${classNamesMap(item, item.nodes)}`;
     });
     return `${result} ${nestedResult}`;
   }

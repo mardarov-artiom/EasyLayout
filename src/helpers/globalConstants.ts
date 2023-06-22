@@ -1,4 +1,4 @@
-import { defaultStyleObjectInterface, LayoutItemsList, uniqueClassListInterface } from "interfaces";
+import { defaultStyleObjectInterface, LayoutItemsList, uniqueClassListInterface } from "interfaces/default";
 
 export const defaultLayoutObject: LayoutItemsList = {
   id: "",
@@ -6,7 +6,7 @@ export const defaultLayoutObject: LayoutItemsList = {
   classList: "",
   nestedLevel: 0,
   bgColor: "",
-  childrens: [],
+  nodes: [],
 };
 
 export const defaultStyleObject: defaultStyleObjectInterface = {
