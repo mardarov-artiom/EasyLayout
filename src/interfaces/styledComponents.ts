@@ -46,3 +46,7 @@ export interface MainViewItemMainContainerInterface {
     }
   }
 }
+
+export interface ViewModeToggleInterface {
+  previewMode: boolean;
+}

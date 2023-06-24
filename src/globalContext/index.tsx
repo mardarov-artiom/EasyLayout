@@ -18,6 +18,7 @@ const defaultState: value = {
     html: 'Copy',
     css: 'Copy',
   },
+  editMode: false,
   layoutItemsList: [defaultLayoutObject],
   uniqueClassList: [
     {
@@ -48,6 +49,7 @@ const defaultState: value = {
   checkIfStylesHaveEmptyField: () => true,
   copyHtmlToClipboard: () => {},
   copyCssToClipboard: () => {},
+  handleEditModeChange: () => {},
 };
 
 export const generateRandomId = (): string => {
@@ -177,8 +179,6 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
   };
 
   public handleItemStyleAddition = (item: uniqueClassListInterface): void => {
-
-
     this.modifyUniqueClassState(item, (elem: any) => {
       this.state.context.modalContent.styles.push(defaultStyleObject);
       elem.styles.push(defaultStyleObject);
@@ -197,6 +197,10 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
     });
   };
 
+  public handleEditModeChange = () => {
+    this.state.context.editMode = !this.state.context.editMode;
+  }
+
   public render() {
     const {
       isLoading,
@@ -204,6 +208,7 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       isModalOpen,
       modalContent,
       copyTextState,
+      editMode,
       uniqueClassList,
       globalApplicationSettings,
     } = this.state.context;
@@ -213,6 +218,7 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       layoutItemsList,
       modalContent,
       copyTextState,
+      editMode,
       uniqueClassList,
       globalApplicationSettings,
       handleModalOpen: this.handleModalOpen,
@@ -225,6 +231,7 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
       copyHtmlToClipboard: this.copyHtmlToClipboard,
       copyCssToClipboard: this.copyCssToClipboard,
+      handleEditModeChange: this.handleEditModeChange,
     };
     return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
   }

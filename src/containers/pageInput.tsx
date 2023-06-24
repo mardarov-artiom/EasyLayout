@@ -7,6 +7,7 @@ import OverflowWrapper from "components/pageLayouts/overflowContainer";
 import { PageInputWrapper, ButtonContainerAddition, HeaderWrapper, Settings, PageInputHeader } from "./styles/pageInput";
 
 import SettingsIcon from "assets/icons/settings.svg";
+import ViewMode from 'components/common/viewMode';
 
 const PageInputContainer: React.FC = (): ReactElement => {
   const {layoutItemsList, handleContainerAddition} = useContext(GlobalContext);
@@ -15,6 +16,7 @@ const PageInputContainer: React.FC = (): ReactElement => {
       <PageInputHeader>
         <HeaderWrapper><h1>Easy Layout</h1></HeaderWrapper>
         <Settings><img src={SettingsIcon} alt="SettingsIcon"/></Settings>
+        <ViewMode />
       </PageInputHeader>
       <OverflowHiddenWrapper>
         <OverflowWrapper background="#1e1e1e">

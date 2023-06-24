@@ -11,6 +11,7 @@ export interface value {
     html: string;
     css: string;
   };
+  editMode: boolean;
   modalContent: uniqueClassListInterface;
   uniqueClassList: uniqueClassListInterface[];
   layoutItemsList: LayoutItemsList[];
@@ -30,4 +31,5 @@ export interface value {
   checkIfStylesHaveEmptyField: () => boolean;
   copyHtmlToClipboard: () => void;
   copyCssToClipboard: () => void;
+  handleEditModeChange: () => void;
 }
