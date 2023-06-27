@@ -1,14 +1,10 @@
-import React, { Fragment, ReactElement, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { componentWithItemsInterface, LayoutItemsList } from '../../../interfaces/default';
 import { GlobalContext } from 'globalContext';
 import { hasNodes } from 'helpers/nodes';
 
 const PreviewLayout: React.FC<componentWithItemsInterface> = ({items}) => {
   const {editMode} = useContext(GlobalContext);
-
-  const createTag = (tagName: string, elementContent: string): ReactElement => {
-    return React.createElement(tagName, {is: 'x3d'}, elementContent);
-  };
 
   return (
     <Fragment>

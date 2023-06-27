@@ -1,10 +1,14 @@
-import React, { ReactElement, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 
-import { PageOutputInternalWrapperInterface } from "interfaces/styledComponents";
-import { PageOutputInternalContainer, ScrollContainer, ScrollInner } from "./styles/pageOutputInternalContainer";
-import { GlobalContext } from '../../../globalContext';
+import { PageOutputInternalWrapperInterface } from 'interfaces/styledComponents';
+import { PageOutputInternalContainer, ScrollContainer, ScrollInner } from './styles/pageOutputInternalContainer';
 
-const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = ({name, text, clickAction, children}): ReactElement => {
+const PageOutputInternalWrapper: React.FC<PageOutputInternalWrapperInterface> = ({
+  name,
+  text,
+  clickAction,
+  children
+}): ReactElement => {
   return (
     <PageOutputInternalContainer>
       <div className="poic-header">
