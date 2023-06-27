@@ -12,7 +12,7 @@ const PreviewLayout: React.FC<componentWithItemsInterface> = ({items}) => {
       return React.createElement(
         item.tagName,
         {
-          className: item.classList,
+          class: item.classList,
           key: item.id,
           is: 'x3d'
         },
@@ -23,7 +23,7 @@ const PreviewLayout: React.FC<componentWithItemsInterface> = ({items}) => {
       return React.createElement(
         item.tagName,
         {
-          className: item.classList,
+          class: item.classList,
           key: item.id,
           is: 'x3d'
         }
