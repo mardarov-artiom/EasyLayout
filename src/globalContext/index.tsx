@@ -273,6 +273,7 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       this.forceUpdate();
       window.setTimeout(() => {
         this.state.context.copyTextState[property] = 'Copy!';
+        this.forceUpdate();
       }, 2000);
     });
   };
