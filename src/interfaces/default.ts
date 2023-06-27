@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface idInterface {
-  id: string
+  id: string;
 }
 
 export interface ComponentWithChildren {
@@ -13,17 +13,18 @@ export interface LayoutItemsList extends idInterface {
   classList: string;
   bgColor: string;
   nestedLevel: number;
+  textContent: string;
   nodes: LayoutItemsList[];
 }
 
-export interface defaultObjInterface extends idInterface  {
+export interface defaultObjInterface extends idInterface {
   open: string;
-  middle: LayoutItemsList[] | defaultObjInterface[],
+  middle: any,
   close: string;
   nestedLevel: number
 }
 
-export interface defaultCSSObjInterface extends idInterface  {
+export interface defaultCSSObjInterface extends idInterface {
   open: string;
   middle: LayoutItemsList[] | defaultCSSObjInterface[],
   nestedLevel: number;
@@ -37,4 +38,12 @@ export interface defaultStyleObjectInterface {
 export interface uniqueClassListInterface {
   className: string;
   styles: defaultStyleObjectInterface[];
+}
+
+export interface globalStylesInterface {
+  classesToAdd: any;
+}
+
+export interface componentWithItemsInterface {
+  items: LayoutItemsList[];
 }

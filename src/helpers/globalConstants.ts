@@ -6,6 +6,7 @@ export const defaultLayoutObject: LayoutItemsList = {
   classList: "",
   nestedLevel: 0,
   bgColor: "",
+  textContent: "",
   nodes: [],
 };
 

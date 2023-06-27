@@ -11,6 +11,7 @@ export const PageOutputHTMLWrapper = styled.div<{ nodes: LayoutItemsList[]; clas
   color: #ddd;
   flex-wrap: ${props => props.nodes.length > 0 && 'wrap'};
   min-width: ${props => 200 + props!.classList!.length * 3}px;
+  white-space: nowrap;
 
   .inner-with-child {
     padding-left: ${props => props.nodes.length > 0 && '15px'};
@@ -19,9 +20,11 @@ export const PageOutputHTMLWrapper = styled.div<{ nodes: LayoutItemsList[]; clas
   .por-tag {
     color: #4680b3;
   }
+
   .por-attr {
     color: #9cdcfe;
   }
+
   .por-class-names {
     color: #d7ba7d;
     white-space: nowrap;

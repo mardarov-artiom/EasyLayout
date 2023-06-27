@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LayoutItemsList } from './default';
+import {LayoutItemsList} from './default';
 
 export interface ModalState {
   modalState: boolean;
@@ -37,7 +37,7 @@ export interface ScrollableWrapperInterface extends React.HTMLAttributes<HTMLDiv
   offset?: number;
 }
 
-export interface MainViewItemMainContainerInterface {
+export interface MainViewItemMainContainerInterface extends ViewModeToggleInterface {
   nodes: LayoutItemsList[];
   settings: {
     [key: string]: {
@@ -49,4 +49,13 @@ export interface MainViewItemMainContainerInterface {
 
 export interface ViewModeToggleInterface {
   previewMode: boolean;
+}
+
+export interface LayoutImtesContainerInterface extends LayoutItemsInterface{
+  multiple: boolean;
+}
+
+export interface LayoutItemsInterface {
+  bg: string;
+  nodes: boolean;
 }

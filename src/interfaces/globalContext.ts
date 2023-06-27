@@ -21,7 +21,8 @@ export interface value {
       value: string | number
     }
   };
-  handleContainerAddition: () => void;
+  applicationClasses: string;
+  handleSectionAddition: () => void;
   handleModalOpen: (item: uniqueClassListInterface) => void;
   handleModalClose: () => void;
   handleItemAddition: (item: LayoutItemsList, newItem: LayoutItemsList) => void;

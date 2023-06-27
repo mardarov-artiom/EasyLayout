@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import { globalStylesInterface } from 'interfaces/default';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<globalStylesInterface>`
   body {
     margin: 0;
     padding: 0;
@@ -12,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: none !important;
   }
-  
+
   *:not(input) {
     caret-color: transparent;
   }
@@ -25,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     background: none;
     color: #fff;
-    
+
     &[type="text"] {
       caret-color: auto;
     }
@@ -37,13 +38,16 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
   }
 
-  .main-class-list {
-    margin-left: 15px;
-    padding-left: 15px;
-    border-left: 1px solid #fff;
-    display: flex;
+  .hidden {
+    overflow: hidden;
   }
-  
+
+  .main-class-list {
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+  }
+
   .button {
     background-color: #304ffe;
     border: none;
@@ -53,15 +57,15 @@ const GlobalStyle = createGlobalStyle`
     margin-left: 15px;
     cursor: pointer;
     transition: background-color 0.2s linear;
-    
+
     &.no-offset {
       margin-left: 0;
     }
-    
+
     &.double-padding {
       padding: 10px 16px;
     }
-    
+
     &.success {
       background-color: #28a745;
     }
@@ -69,22 +73,22 @@ const GlobalStyle = createGlobalStyle`
     &.cancel {
       background-color: #304ffe;
     }
-    
+
     &.danger {
       background-color: #dc3545;
     }
-    
+
     &.disabled {
       background-color: #f8f9fa;
       cursor: not-allowed;
       color: #d3d3d3;
     }
   }
-  
+
   .relative {
     position: relative;
   }
-  
+
   .hide-button {
     position: absolute;
     top: 5px;
@@ -95,16 +99,18 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 3px;
     font-size: 12px;
     cursor: pointer;
-    
+
     &.right {
       left: unset;
       right: 5px;
     }
   }
-  
+
   .page-output-wrapper > div:last-child {
     margin-bottom: 0;
   }
+
+  ${props => props.classesToAdd}
 `;
 
 export default GlobalStyle;
