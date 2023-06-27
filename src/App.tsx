@@ -10,10 +10,9 @@ import { Container, Section, Bar } from "react-simple-resizer";
 import PageMainContainer from "components/pageLayouts/pageMainContainer";
 
 import "normalize.css";
-import "Grid.scss";
 
 const App: React.FC = (): ReactElement  => {
-  const {isLoading} = useContext(GlobalContext);
+  const {isLoading, applicationClasses, editMode} = useContext(GlobalContext);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -21,7 +20,7 @@ const App: React.FC = (): ReactElement  => {
 
   return (
     <Fragment>
-      <GlobalStyle/>
+      <GlobalStyle classesToAdd={!editMode && applicationClasses}/>
       <PageMainContainer>
         <Container style={{width: 100 + "%", height: "100vh"}}>
           <Section defaultSize={384} minSize={250}>

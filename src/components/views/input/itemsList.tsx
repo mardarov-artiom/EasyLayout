@@ -15,6 +15,7 @@ const ItemsList: React.FC<{ items: LayoutItemsList[] }> = ({items}): ReactElemen
           id: generateRandomId(),
           tagName: "div",
           classList: "",
+          textContent: "",
           bgColor: assignColor(item.nestedLevel + 1),
           nestedLevel: item.nestedLevel + 1,
           nodes: [],

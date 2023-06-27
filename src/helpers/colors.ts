@@ -1,6 +1,5 @@
 export const bgColors: string[] = [
   '#304ffe',
-  '#2962ff',
   '#0091ea',
   '#00b8d4',
   '#00bfa5',

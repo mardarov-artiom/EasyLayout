@@ -11,6 +11,7 @@ export interface value {
     html: string;
     css: string;
   };
+  editMode: boolean;
   modalContent: uniqueClassListInterface;
   uniqueClassList: uniqueClassListInterface[];
   layoutItemsList: LayoutItemsList[];
@@ -20,7 +21,8 @@ export interface value {
       value: string | number
     }
   };
-  handleContainerAddition: () => void;
+  applicationClasses: string;
+  handleSectionAddition: () => void;
   handleModalOpen: (item: uniqueClassListInterface) => void;
   handleModalClose: () => void;
   handleItemAddition: (item: LayoutItemsList, newItem: LayoutItemsList) => void;
@@ -30,4 +32,5 @@ export interface value {
   checkIfStylesHaveEmptyField: () => boolean;
   copyHtmlToClipboard: () => void;
   copyCssToClipboard: () => void;
+  handleEditModeChange: () => void;
 }

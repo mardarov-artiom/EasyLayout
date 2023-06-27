@@ -1,27 +1,35 @@
-import React, { ReactElement, useContext } from "react";
-import OverflowHiddenWrapper from "components/pageLayouts/overflowHiddenContainer";
-import ItemsList from "components/views/input/itemsList";
-import { GlobalContext } from "globalContext";
-import OverflowWrapper from "components/pageLayouts/overflowContainer";
+import React, { ReactElement, useContext } from 'react';
+import OverflowHiddenWrapper from 'components/pageLayouts/overflowHiddenContainer';
+import ItemsList from 'components/views/input/itemsList';
+import { GlobalContext } from 'globalContext';
+import OverflowWrapper from 'components/pageLayouts/overflowContainer';
 
-import { PageInputWrapper, ButtonContainerAddition, HeaderWrapper, Settings, PageInputHeader } from "./styles/pageInput";
+import {
+  ButtonContainerAddition,
+  HeaderWrapper,
+  PageInputHeader,
+  PageInputWrapper,
+  Settings
+} from './styles/pageInput';
 
-import SettingsIcon from "assets/icons/settings.svg";
+import SettingsIcon from 'assets/icons/settings.svg';
+import ViewMode from 'components/common/viewMode';
 
 const PageInputContainer: React.FC = (): ReactElement => {
-  const {layoutItemsList, handleContainerAddition} = useContext(GlobalContext);
+  const {layoutItemsList, handleSectionAddition} = useContext(GlobalContext);
   return (
     <PageInputWrapper>
       <PageInputHeader>
         <HeaderWrapper><h1>Easy Layout</h1></HeaderWrapper>
         <Settings><img src={SettingsIcon} alt="SettingsIcon"/></Settings>
+        <ViewMode/>
       </PageInputHeader>
       <OverflowHiddenWrapper>
         <OverflowWrapper background="#1e1e1e">
           <ItemsList items={layoutItemsList}/>
         </OverflowWrapper>
       </OverflowHiddenWrapper>
-      <ButtonContainerAddition onClick={handleContainerAddition}><span>Add Container</span></ButtonContainerAddition>
+      <ButtonContainerAddition onClick={handleSectionAddition}><span>Add Section</span></ButtonContainerAddition>
     </PageInputWrapper>
   );
 };

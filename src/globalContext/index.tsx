@@ -2,13 +2,19 @@
 import React from 'react';
 import copy from 'clipboard-copy';
 
-import { defaultObjInterface, defaultStyleObjectInterface, LayoutItemsList, uniqueClassListInterface } from 'interfaces/default';
+import {
+  defaultObjInterface,
+  defaultStyleObjectInterface,
+  LayoutItemsList,
+  uniqueClassListInterface
+} from 'interfaces/default';
 import { GlobalContextStateInterface, value } from 'interfaces/globalContext';
 
 import { assignColor } from 'helpers/colors';
 import { clipboardCSSItem, clipboardHTMLItem, joinReformattedArray, reformatString } from 'helpers/clipboard';
 import { classNamesMap, transformResult } from 'helpers/classNamesMap';
 import { defaultLayoutObject, defaultModalContent, defaultStyleObject } from 'helpers/globalConstants';
+import { hasNodes } from '../helpers/nodes';
 
 const defaultState: value = {
   isLoading: false,
@@ -16,38 +22,51 @@ const defaultState: value = {
   isModalOpen: false,
   copyTextState: {
     html: 'Copy',
-    css: 'Copy',
+    css: 'Copy'
   },
+  editMode: true,
   layoutItemsList: [defaultLayoutObject],
   uniqueClassList: [
     {
       className: 'container',
       styles: [
-        {property: 'width', value: 100 + '%'},
-        {property: 'border', value: '2px solid red'},
-      ],
-    },
+        {property: 'width', value: 100 + '%'}
+        // {property: 'border', value: '2px solid red'},
+      ]
+    }
   ],
   globalApplicationSettings: {
     defaultDisplayValue: {
       label: 'Default display value',
-      value: 'flex',
+      value: 'flex'
     },
     defaultElementInFlexRow: {
       label: 'Number of default elements in a flex row',
-      value: 3,
-    },
+      value: 3
+    }
   },
-  handleContainerAddition: () => {},
-  handleItemAddition: () => {},
-  handleItemStyleAddition: () => {},
-  handleInputChange: () => {},
-  handleModalOpen: () => {},
-  handleModalClose: () => {},
-  handleStylePropertyChange: () => {},
+  applicationClasses: '',
+  handleSectionAddition: () => {
+  },
+  handleItemAddition: () => {
+  },
+  handleItemStyleAddition: () => {
+  },
+  handleInputChange: () => {
+  },
+  handleModalOpen: () => {
+  },
+  handleModalClose: () => {
+  },
+  handleStylePropertyChange: () => {
+  },
   checkIfStylesHaveEmptyField: () => true,
-  copyHtmlToClipboard: () => {},
-  copyCssToClipboard: () => {},
+  copyHtmlToClipboard: () => {
+  },
+  copyCssToClipboard: () => {
+  },
+  handleEditModeChange: () => {
+  }
 };
 
 export const generateRandomId = (): string => {
@@ -63,14 +82,14 @@ const reactiveStateProxy = (component: any) => {
       obj[prop] = value;
       component.setState({context: reactiveStateProxy(component)});
       return true;
-    },
+    }
   });
 };
 
 
 class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalContextStateInterface> {
   state = {
-    context: reactiveStateProxy(this),
+    context: reactiveStateProxy(this)
   };
 
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -83,24 +102,26 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
     this.state.context.layoutItemsList = [
       {
         id: generateRandomId(),
-        tagName: 'div',
+        tagName: 'section',
         classList: 'container',
+        textContent: '',
         bgColor: assignColor(0),
         nestedLevel: 0,
-        nodes: [],
-      },
+        nodes: []
+      }
     ];
+    this.setApplicationClasses();
   };
 
-  public handleContainerAddition = (): void => {
-    const newLayoutItem = {...defaultLayoutObject, id: generateRandomId()};
+  public handleSectionAddition = (): void => {
+    const newLayoutItem = {...defaultLayoutObject, id: generateRandomId(), tagName: 'section'};
     newLayoutItem.bgColor = assignColor(this.state.context.layoutItemsList.length);
     this.modifyLayoutItemsState(
       newLayoutItem,
       (stateCopy: LayoutItemsList[]) => {
         stateCopy.push(newLayoutItem);
       },
-      true,
+      true
     );
     this.classListCssMap();
   };
@@ -115,16 +136,13 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
   public copyHtmlToClipboard = (): void => {
     const resultArray: defaultObjInterface[] = [];
     this.state.context.layoutItemsList.map((item: LayoutItemsList) => {
-      if (item.nodes && item.nodes.length > 0) {
+      if (hasNodes(item)) {
         return resultArray.push(clipboardHTMLItem(item, item.nodes));
       }
       return resultArray.push(clipboardHTMLItem(item));
     });
 
     const resultString = resultArray.map((item: defaultObjInterface): string => {
-      if (item.middle.length > 0) {
-        return reformatString(item, item.middle);
-      }
       return reformatString(item);
     });
 
@@ -161,6 +179,7 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
 
     if (field === 'classList') {
       this.classListCssMap();
+      this.setApplicationClasses();
     }
   };
 
@@ -177,8 +196,6 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
   };
 
   public handleItemStyleAddition = (item: uniqueClassListInterface): void => {
-
-
     this.modifyUniqueClassState(item, (elem: any) => {
       this.state.context.modalContent.styles.push(defaultStyleObject);
       elem.styles.push(defaultStyleObject);
@@ -195,6 +212,11 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
         elem.styles.splice(elementIndex, 1);
       }
     });
+    this.setApplicationClasses();
+  };
+
+  public handleEditModeChange = () => {
+    this.state.context.editMode = !this.state.context.editMode;
   };
 
   public render() {
@@ -204,8 +226,10 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       isModalOpen,
       modalContent,
       copyTextState,
+      editMode,
       uniqueClassList,
       globalApplicationSettings,
+      applicationClasses
     } = this.state.context;
     const value: value = {
       isLoading,
@@ -213,18 +237,21 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       layoutItemsList,
       modalContent,
       copyTextState,
+      editMode,
       uniqueClassList,
       globalApplicationSettings,
+      applicationClasses,
       handleModalOpen: this.handleModalOpen,
       handleModalClose: this.handleModalClose,
       handleItemAddition: this.handleItemAddition,
       handleInputChange: this.handleInputChange,
-      handleContainerAddition: this.handleContainerAddition,
+      handleSectionAddition: this.handleSectionAddition,
       handleStylePropertyChange: this.handleStylePropertyChange,
       handleItemStyleAddition: this.handleItemStyleAddition,
       checkIfStylesHaveEmptyField: this.checkIfStylesHaveEmptyField,
       copyHtmlToClipboard: this.copyHtmlToClipboard,
       copyCssToClipboard: this.copyCssToClipboard,
+      handleEditModeChange: this.handleEditModeChange
     };
     return <GlobalContext.Provider value={value}>{this.props.children}</GlobalContext.Provider>;
   }
@@ -299,6 +326,14 @@ class GlobalProvider extends React.Component<React.PropsWithChildren, GlobalCont
       callback(elem);
     }
     this.state.context.layoutItemsList = stateCopy;
+  };
+
+  private setApplicationClasses = (): void => {
+    let formattedApplicationClasses: string = '';
+    this.state.context.uniqueClassList.map((item: defaultStyleObjectInterface) => {
+      return formattedApplicationClasses += clipboardCSSItem(item);
+    });
+    this.state.context.applicationClasses = formattedApplicationClasses;
   };
 }
 
